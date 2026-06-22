@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Employee.Entities.Models.Basic;
+using Employee.Entities.Models.Personel;
 
 namespace Employee.DataAccess.Data
 {
@@ -32,7 +28,9 @@ namespace Employee.DataAccess.Data
         public DbSet<Province> Provinces { get; set; }
         public DbSet<City> Cities { get; set; }
         #endregion
-
+        #region Personel    
+        public DbSet<TblEmployee> Employees { get; set; }
+        #endregion
     }
 
 }
