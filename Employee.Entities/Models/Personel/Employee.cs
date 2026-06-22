@@ -1,7 +1,5 @@
-﻿using Employee.Entities.Models.Basic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
 
 namespace Employee.Entities.Models.Personel
 {
@@ -12,64 +10,64 @@ namespace Employee.Entities.Models.Personel
         public int EmpId { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [MaxLength(10)]
         public string EmployeeNumber { get; set; } = string.Empty;
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? IdentityNumber { get; set; }
 
-        [StringLength(10)]
+        [MaxLength(10)]
         public string? NationalNumber { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? Name { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? Family { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? Father { get; set; }
 
-        public DateTime? BirthDate { get; set; }
+        public DateOnly? BirthDate { get; set; }
 
         public int? BirthProvice { get; set; }
 
         public int? BirthCity { get; set; }
 
-        [StringLength(10)]
+        [MaxLength(10)]
         public string? MaritalStatus { get; set; }
 
         public int? HomeProvince { get; set; }
 
         public int? HomeCity { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? PostalCode { get; set; }
 
-        [StringLength(200)]
+        [MaxLength(200)]
         public string? Address { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? HomeTel { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? Mobile { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? MilitaryService { get; set; }
 
-        public DateTime? MilitaryDate { get; set; }
+        public DateOnly? MilitaryDate { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? MilitaryExemptionType { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? InsuranceType { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? InsyranceNo { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? InsuranceBranch { get; set; }
 
         public int? StudyLevelId { get; set; }
@@ -88,9 +86,9 @@ namespace Employee.Entities.Models.Personel
 
         public int? SecondOrganizationId { get; set; }
 
-        public DateTime? WorkStartDate { get; set; }
+        public DateOnly? WorkStartDate { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? InsuranceOutOfCompany { get; set; }
 
         public int? EntryProviance { get; set; }
@@ -99,18 +97,18 @@ namespace Employee.Entities.Models.Personel
 
         public int? PayBank { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? PayAccountNumber { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? PayShabaNumber { get; set; }
 
         public int? PayBackupBank { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? PayBackupNumber { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? PayPackupShabaNumber { get; set; }
 
         public int? CampId { get; set; }
@@ -119,14 +117,14 @@ namespace Employee.Entities.Models.Personel
 
         public int? RoomPhone { get; set; }
 
-        [StringLength(20)]
+        [MaxLength(20)]
         public string? WorkPhone { get; set; }
 
         public bool? Pollution { get; set; }
 
         public double? PollutionPercent { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? PollutionRow { get; set; }
 
         public bool? Height { get; set; }
@@ -151,44 +149,63 @@ namespace Employee.Entities.Models.Personel
 
         public int? JobTypeId { get; set; }
 
-        // Navigation Properties
-        [ForeignKey("AdministrationId")]
+        // ── Navigation Properties ──────────────────────────────
+
+        [ForeignKey(nameof(AdministrationId))]
         public virtual Administration? Administration { get; set; }
 
-        [ForeignKey("PayBank")]
+        [ForeignKey(nameof(PayBank))]
         public virtual Bank? PayBankNavigation { get; set; }
 
-        [ForeignKey("PayBackupBank")]
+        [ForeignKey(nameof(PayBackupBank))]
         public virtual Bank? PayBackupBankNavigation { get; set; }
 
-        [ForeignKey("CampId")]
+        [ForeignKey(nameof(CampId))]
         public virtual Camp? Camp { get; set; }
 
-        [ForeignKey("BirthCity")]
+        [ForeignKey(nameof(BirthCity))]
         public virtual City? BirthCityNavigation { get; set; }
 
-        [ForeignKey("HomeCity")]
+        [ForeignKey(nameof(HomeCity))]
         public virtual City? HomeCityNavigation { get; set; }
 
-        [ForeignKey("EntryCity")]
+        [ForeignKey(nameof(EntryCity))]
         public virtual City? EntryCityNavigation { get; set; }
 
-        [ForeignKey("ContractTypeId")]
+        [ForeignKey(nameof(ContractTypeId))]
         public virtual ContractType? ContractType { get; set; }
 
-        [ForeignKey("EduOrientationId")]
+        [ForeignKey(nameof(EduOrientationId))]
         public virtual EduOrientation? EduOrientation { get; set; }
 
-        [ForeignKey("JobId")]
-        public virtual Job? Job { get; set; }
-
-        [ForeignKey("JobLocId")]
+        [ForeignKey(nameof(JobLocId))]
         public virtual JobLocation? JobLocation { get; set; }
 
-        [ForeignKey("JobTypeId")]
+        [ForeignKey(nameof(JobId))]
+        public virtual Job? Job { get; set; }
+
+        [ForeignKey(nameof(JobTypeId))]
         public virtual JobType? JobType { get; set; }
 
-        [ForeignKey("OrganizationId")]
+        [ForeignKey(nameof(OrganizationId))]
         public virtual Organization? Organization { get; set; }
+
+        [ForeignKey(nameof(SecondOrganizationId))]
+        public virtual Organization? SecondOrganization { get; set; }
+
+        [ForeignKey(nameof(StudyLevelId))]
+        public virtual StudyLevel? StudyLevel { get; set; }
+
+        [ForeignKey(nameof(StudyFieldId))]
+        public virtual StudyField? StudyField { get; set; }
+
+        [ForeignKey(nameof(BirthProvice))]
+        public virtual Province? BirthProvince { get; set; }
+
+        [ForeignKey(nameof(HomeProvince))]
+        public virtual Province? HomeProvinceNavigation { get; set; }
+
+        [ForeignKey(nameof(EntryProviance))]
+        public virtual Province? EntryProvinceNavigation { get; set; }
     }
 }
