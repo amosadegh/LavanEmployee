@@ -1,0 +1,59 @@
+﻿@model Employee.Entities.Models.Basic.ContractType
+
+@{
+    ViewBag.Title = "قرارداد جدید";
+    Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header" style="padding-bottom: 25px;">
+    <ol class="breadcrumb">
+        @*  <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li> *@
+        <li><a href="#">مقادیر پایه</a></li>
+        <li class="active">افزودن قرارداد جدید</li>
+    </ol>
+</section>
+
+<div class="form-horizontal">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">افزودن قرارداد جدید</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <div class="col-md-2 text-left">
+                                    <label asp-for="ContractTypeTitle" class="control-label"></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="ContractTypeTitle" class="form-control" />
+                                    <span asp-validation-for="ContractTypeTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="ذخیره قرارداد" class="btn btn-success" />
+                                    @* @Html.ActionLink("برگشت به لیست", "Index", null, new { @class = "btn btn-warning" }) *@
+                                    <a asp-action="Index" class="btn btn-warning">
+                                        بازگشت
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <!-- /.box -->
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+</div>

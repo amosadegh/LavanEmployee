@@ -1,0 +1,73 @@
+﻿@model JobType
+
+@{
+    ViewBag.Title = "ویرایش نوع کار";  
+}
+
+<section class="content-header" style="padding-bottom: 25px;">
+    <ol class="breadcrumb">
+        @*  <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li> *@
+        <li><a href="#">مقادیر پایه</a></li>
+        <li class="active">ویرایش نوع کار</li>
+    </ol>
+</section>
+
+<div class="form-horizontal">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">ویرایش</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form asp-action="Edit">
+                            <input type="hidden" asp-for="JobTypeId" />
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <div class="col-md-2 text-left">
+                                    <label asp-for="JobTypeCode" class="control-label"></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="JobTypeCode" class="form-control" />
+                                    <span asp-validation-for="JobTypeCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2 text-left">
+                                    <label asp-for="JobTypeTitle" class="control-label"></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="JobTypeTitle" class="form-control" />
+                                    <span asp-validation-for="JobTypeTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="ذخیره شغل" class="btn btn-success" />
+                                    @* @Html.ActionLink("برگشت به لیست", "Index", null, new { @class = "btn btn-warning" }) *@
+                                    <a asp-action="Index" class="btn btn-warning">
+                                        بازگشت
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <!-- /.box -->
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,134 @@
+﻿@model IEnumerable<EduOrientation>
+
+@{
+    ViewBag.Title = "لیست گرایش رشته تحصیلی";
+}
+<section class="content-header">
+    @*<h3>
+    مقادیر پایه
+    <small>لیست مقاطع تحصیلی</small>
+    </h3>*@
+    <ol class="breadcrumb">
+        <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li><a href="#">مقادیر پایه</a></li>
+        <li class="active">لیست گرایش رشته تحصیلی</li>
+    </ol>
+</section>
+<p style="margin-top:20px;margin-right:20px">
+    @Html.ActionLink("افزودن گرایش جدید", "Create", "EduOrientations", null, new { @class = "btn btn-sm btn-primary" })
+</p>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">لیست گرایش رشته تحصیلی</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="tblList" class="table display table-striped table-bordered table-hover table-condensed table-responsive" style="width:95%;">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EduOrientationTitle)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StudyField!.StudyFieldTitle)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EduOrientationTitle)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudyField!.StudyFieldTitle)
+                                    </td>
+                                    <td>
+                                        <a href=@Url.Action("Edit", new {id = item.EduOrientationId}) class="btn btn-primary btn-sm fa fa-edit" data-toggle="tooltip" data-placement="top" title="ویرایش" }></a> |
+                                        <a href=@Url.Action("Delete", new {id = item.EduOrientationId}) class="btn btn-danger btn-sm fa fa-trash" data-toggle="tooltip" data-placement="top" title="حذف" }></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <!-- /.box -->
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+@section scripts
+{
+    <script src="~/Scripts/DataTable/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTable/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/DataTable/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/DataTable/responsive.bootstrap.min.js"></script>
+    <link href="~/Content/css/DataTable/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/DataTable/responsive.bootstrap.min.css" rel="stylesheet" />
+    <script>
+        var tblList;
+        $(document).ready(function () {
+            tblList = pageDT();
+            responsive = true;
+
+        });
+
+        function pageDT() {
+            var tblList = $("#tblList").DataTable({
+                "lengthChange": false,
+
+                "responsive": true,
+                "dom": ' <"search"f><"top"l>rt<"bottom"ip><"clear">',
+                "columnDefs": [
+                    { "className": "dt-body-center, dt-center", "targets": "_all" },
+                    { "width": "60%", "targets": 0 },
+                    { "width": "30%", "targets": 1 },
+                    { "width": "10%", "targets": 2 }                ],
+                "lengthMenu": [[20, 25, 50, -1], [20, 25, 50, "All"]],
+                "language":
+                {
+                    "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
+                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                    "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                    "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "نمایش _MENU_ رکورد",
+                    "sLoadingRecords": "در حال بارگزاری...",
+                    "sProcessing": "در حال پردازش...",
+                    "sSearch": "جستجو: ",
+                    "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                    "oPaginate": {
+                        "sFirst": "ابتدا",
+                        "sLast": "انتها",
+                        "sNext": "بعدی",
+                        "sPrevious": "قبلی"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
+                        "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+                    }
+                }
+
+            });
+
+            return tblList;
+        }
+
+
+    </script>
+}
+
+
+

@@ -1,0 +1,24 @@
+﻿@model Employee.Entities.Models.Basic.StudyField
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>StudyField</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StudyFieldTitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StudyFieldTitle)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.StudyFieldId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

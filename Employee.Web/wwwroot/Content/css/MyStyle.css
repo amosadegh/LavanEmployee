@@ -1,0 +1,59 @@
+﻿/* ***************** Set Bootstrap tooltip Font And Size *************************** */
+.tooltip {
+    font-family: 'Vazir', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 14px;
+}
+/* ***************** End Set Bootstrap tooltip Font And Size *************************** */
+
+/* ***************** Calendar stay top *************************** */
+.datepicker-plot-area {
+    z-index: 2;
+}
+/* ***************** End Calendar stay top *************************** */
+
+.form-control {
+    padding: 0 12px !important;
+}
+.select2 {
+    width: 100% !important;
+    direction: ltr !important;
+}
+.select2-selection__rendered {
+    direction: rtl;
+    right: 1px !important;
+}
+
+/* *********************file upload button******************************/
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
+
+.docborder {
+    border:black solid 1px;
+}
+.tabledetail.table-bordered{
+    border:1px solid blue;
+    margin-top:20px;
+}
+.tabledetail.table-bordered > thead > tr > th{
+    border:1px solid blue;
+}
+.tabledetail.table-bordered > tbody > tr > td{
+    border:1px solid blue;
+}
