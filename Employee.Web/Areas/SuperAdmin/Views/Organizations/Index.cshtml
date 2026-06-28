@@ -3,113 +3,48 @@
 @{
     ViewBag.Title = "لیست سازمان ها";
 }
-<section class="content-header">
-    <ol class="breadcrumb">
-        <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li>
-        <li><a href="#">مقادیر پایه</a></li>
-        <li class="active">لیست سازمان ها</li>
-    </ol>
-</section>
-<p style="margin-top:20px;margin-right:20px">
-    @Html.ActionLink("افزودن سازمان جدید", "Create", "Organizations", null, new { @class = "btn btn-sm btn-primary" })
-</p>
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">لیست سازمان ها</h3>
-                </div>
-                <div class="box-body">
-                    <table id="tblList" class="table display table-striped table-bordered table-hover table-condensed table-responsive" style="width:95%;">
+@section styles {
 
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.OrganizationTitle)
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.OrganizationTitle)
-                                    </td>
-                                    <td>
-                                        <a href=@Url.Action("Edit", new { id = item.OrganizationId }) class="btn btn-primary btn-sm fa fa-edit" data-toggle="tooltip" data-placement="top" title="ویرایش"></a> |
-                                        <a href=@Url.Action("Delete", new { id = item.OrganizationId }) class="btn btn-danger btn-sm fa fa-trash" data-toggle="tooltip" data-placement="top" title="حذف"></a>
-                                    </td>
-                                </tr>
-                            }
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h4 text-gray-800">@ViewBag.Title</h1>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-2"></i>افزودن سازمان جدید
+    </a>
+</div>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive px-3">
+            <table id="tblList" class="table display table-striped table-bordered table-hover table-condensed table-responsive">
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrganizationTitle)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrganizationTitle)
+                            </td>
+                            <td>
+                                <a href=@Url.Action("Edit", new {id = item.OrganizationId}) class="btn btn-sm btn-info text-white"><i class="bi bi-pencil-square"></i></a>
+                                <a href=@Url.Action("Delete", new {id = item.OrganizationId}) class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
         </div>
     </div>
-</section>
-
-@section scripts
-{
-    <script src="~/Scripts/DataTable/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/DataTable/dataTables.bootstrap.min.js"></script>
-    <script src="~/Scripts/DataTable/dataTables.responsive.min.js"></script>
-    <script src="~/Scripts/DataTable/responsive.bootstrap.min.js"></script>
-    <link href="~/Content/css/DataTable/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/css/DataTable/responsive.bootstrap.min.css" rel="stylesheet" />
-    <script>
-        var tblList;
-        $(document).ready(function () {
-            tblList = pageDT();
-            responsive = true;
-
-        });
-
-        function pageDT() {
-            var tblList = $("#tblList").DataTable({
-                "lengthChange": false,
-
-                "responsive": true,
-                "dom": ' <"search"f><"top"l>rt<"bottom"ip><"clear">',
-                "columnDefs": [
-                    { "className": "dt-body-center, dt-center", "targets": "_all" },
-                    { "width": "80%", "targets": 0 },
-                    { "width": "20%", "targets": 1 }
-                ],
-                "lengthMenu": [[20, 25, 50, -1], [20, 25, 50, "All"]],
-                "language":
-                {
-                    "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
-                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
-                    "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
-                    "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ",",
-                    "sLengthMenu": "نمایش _MENU_ رکورد",
-                    "sLoadingRecords": "در حال بارگزاری...",
-                    "sProcessing": "در حال پردازش...",
-                    "sSearch": "جستجو: ",
-                    "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
-                    "oPaginate": {
-                        "sFirst": "ابتدا",
-                        "sLast": "انتها",
-                        "sNext": "بعدی",
-                        "sPrevious": "قبلی"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
-                        "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
-                    }
-                }
-
-            });
-
-            return tblList;
-        }
-
-    </script>
+</div>
+@section scripts {
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 }

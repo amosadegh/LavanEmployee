@@ -31,11 +31,12 @@ namespace Employee.Web.Areas.SuperAdmin.Controllers
        
 
         // GET: SuperAdmin/Cities/Create
-        public async Task<IActionResult> CreateAsync()
+        public async Task<IActionResult> Create()
         {
             var province = await _provinceRepository.GetAsync();
-            ViewData["ProvinceId"] = new SelectList(province, "Id", "Name");          
+            ViewData["ProvinceId"] = new SelectList(province, "Id", "Name");
             return View();
+
         }
 
         // POST: SuperAdmin/Cities/Create
@@ -48,12 +49,13 @@ namespace Employee.Web.Areas.SuperAdmin.Controllers
             if (ModelState.IsValid)
             {
                 await _cityRepository.AddAsync(city);
-                await _cityRepository.SaveChangesAsync();                  
+                await _cityRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             var province = await _provinceRepository.GetAsync();
             ViewData["ProvinceId"] = new SelectList(province, "Id", "Name");
             return View(city);
+
         }
 
         // GET: SuperAdmin/Cities/Edit/5

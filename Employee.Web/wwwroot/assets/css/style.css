@@ -1,0 +1,509 @@
+/* Import Vazirmatn Font */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap');
+
+/* --- CSS Variables for Easy Theming --- */
+:root {
+    --bs-primary-rgb: 88, 101, 242; /* A modern purple/blue */
+    --bs-primary: rgb(var(--bs-primary-rgb));
+    --app-bg: #f4f7fe;
+    --sidebar-bg: #ffffff;
+    --card-bg: #ffffff;
+    --text-color: #495057;
+    --text-muted: #8a92a9;
+    --border-color: #e9ecef;
+}
+
+body {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: var(--app-bg);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* --- Main Layout --- */
+#main-wrapper {
+    display: flex;
+}
+#sidebar{
+    position:fixed;
+    top:0;
+    bottom:0;
+    right:0;/*در حالت RTL سایبار سمت راست است*/
+    height:100vh;/*ارتفاع برابر کل صفحه نمایش*/
+    /*فعال سازی اسکرئل عمودی در صورت نیاز و غیرفعال کردن اسکرول افقی*/
+    overflow-y:auto;
+    overflow-x:hidden;
+    /*اسکرول روان در دستگاه های لمسی و مدرن*/
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+}
+/*پهنای اسکروبار بسیار تازک*/
+#sidebar::-webkit-scrollbar{
+    width:5px;
+}
+/*مسیر حرکت اسکرول بار (پس زمینه خالی)*/
+#sidebar::-webkit-scrollbar-track{
+    background:transparent;
+}
+/*شستی اسکرول بار نیمه شفاف متناسب با تم شیشه ای*/
+#sidebar::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255.0.15);
+    border-radius:10px;
+    transition:background 0.3s ease;
+}
+/*تغییر رنگ شستی اسکرول بار در حالت هاور*/
+#sidebar::-webkit-scrollbar-thumb:hover{
+    background:rgba(255,255,255,0.3);
+}
+
+
+#main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    margin-right: 280px;
+    transition: margin-right 0.35s ease-in-out;
+    width: calc(100% - 280px);
+}
+
+/* --- Collapsed Sidebar State --- */
+#main-wrapper.sidebar-collapsed #sidebar {
+    margin-right: -280px;
+}
+
+#main-wrapper.sidebar-collapsed #main-content {
+    margin-right: 0;
+    width: 100%;
+}
+
+
+/* --- Sidebar Styles --- */
+.sidebar-brand {
+    padding: 1.75rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-color);
+    text-decoration: none;
+}
+.sidebar-brand i {
+    color: var(--bs-primary);
+}
+
+.sidebar-nav {
+    padding: 0 1rem;
+    list-style: none;
+}
+
+.sidebar-nav .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    margin: 0.25rem 0;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    border-right: 3px solid transparent;
+}
+
+.sidebar-nav .nav-item .nav-link i {
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    width: 24px;
+    transition: color 0.2s ease;
+}
+
+.sidebar-nav .nav-item .nav-link:hover {
+    background-color: rgba(var(--bs-primary-rgb), 0.07);
+    color: var(--bs-primary);
+}
+
+.sidebar-nav .nav-item .nav-link.active {
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    color: var(--bs-primary);
+    font-weight: 700;
+    border-right-color: var(--bs-primary);
+}
+
+.sidebar-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+}
+
+
+/* --- Top Navbar (Glassmorphism) --- */
+#top-navbar {
+    position: sticky;
+    top: 1rem;
+    margin-bottom: 2rem;
+    z-index: 1000;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+}
+
+#sidebar-toggle {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+}
+#sidebar-toggle:hover {
+    color: var(--bs-primary);
+}
+
+/* --- Card Styles --- */
+.card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem 1.5rem;
+    font-weight: 700;
+}
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Dashboard card icon helper */
+.icon-circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+}
+.bg-primary-soft { background-color: rgba(var(--bs-primary-rgb), 0.1); color: var(--bs-primary); }
+.bg-success-soft { background-color: rgba(var(--bs-success-rgb), 0.1); color: var(--bs-success); }
+.bg-warning-soft { background-color: rgba(var(--bs-warning-rgb), 0.1); color: var(--bs-warning); }
+
+
+/* --- Auth Pages (Login, Register) --- */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e0e5ec;
+}
+.auth-card {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 1.25rem;
+}
+
+
+/* --- DataTables --- */
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+}
+.page-item .page-link {
+    border-radius: 0.5rem !important;
+    margin: 0 2px;
+}
+/* --- Main Layout Updates --- */
+#main-wrapper {
+    display: flex;
+    position: relative;
+    min-height: 100vh;
+}
+
+#sidebar {
+    width: 280px;
+    min-height: 100vh;
+    background-color: var(--sidebar-bg);
+    position: fixed;
+    top: 0;
+    right: 0;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1040; /* بالاتر از نوار بالا قرار بگیرد */
+    border-left: 1px solid var(--border-color);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+}
+
+#main-content {
+    flex-grow: 1;
+    padding: 1.5rem;
+    margin-right: 280px; /* فضای خالی پیش‌فرض برای سایدبار در دسکتاپ */
+    transition: margin-right 0.3s ease-in-out, width 0.3s ease-in-out;
+    width: calc(100% - 280px);
+}
+
+/* لایه تاریک پشت سایدبار در موبایل */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 1030;
+    display: none;
+    transition: opacity 0.3s ease;
+}
+
+/* --- Responsive & Toggle Logic (Media Queries) --- */
+
+/* حالت دسکتاپ (صفحه‌های بزرگتر یا مساوی 992px) */
+@media (min-width: 992px) {
+    /* وقتی سایدبار در دسکتاپ بسته می‌شود */
+    #main-wrapper.sidebar-collapsed #sidebar {
+        transform: translateX(280px); /* انتقال سایدبار به خارج از صفحه از سمت راست */
+    }
+    #main-wrapper.sidebar-collapsed #main-content {
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+/* حالت موبایل و تبلت (صفحه‌های کوچکتر از 992px) */
+@media (max-width: 991.98px) {
+    #sidebar {
+        transform: translateX(280px); /* در حالت عادی روی موبایل مخفی باشد */
+    }
+    #main-content {
+        margin-right: 0; /* محتوا تمام صفحه را بگیرد */
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    /* وقتی دکمه همبرگری روی موبایل کلیک می‌شود */
+    #main-wrapper.sidebar-show #sidebar {
+        transform: translateX(0); /* نمایش سایدبار روی صفحه */
+    }
+    #main-wrapper.sidebar-show .sidebar-overlay {
+        display: block; /* نمایش لایه تاریک */
+    }
+}
+/* استایل لینک فعال درون زیرمنو */
+.submenu-list .nav-link.active {
+    color: var(--bs-primary) !important;
+    background-color: rgba(88, 101, 242, 0.08) !important; /* رنگ هماهنگ با تم اصلی با شفافیت ۸٪ */
+    font-weight: 600;
+    border-radius: 0.375rem;
+}
+
+/* استایل منوی والد وقتی که زیرمنوی آن باز و فعال است */
+.nav-link.parent-active {
+    color: var(--bs-primary) !important;
+    font-weight: 600;
+}
+/* حذف فلش پیش‌فرض دراپ‌داون برای آیکون زنگوله */
+.no-arrow::after {
+    display: none !important;
+}
+
+/* پهنا و استایل کلی منوی کشویی اعلان‌ها */
+.notification-dropdown-menu {
+    width: 320px;
+    border-radius: 1rem !important;
+    font-size: 0.9rem;
+    left: 0; /* موقعیت‌یابی صحیح در جهت راست‌چین */
+}
+
+/* هاور بر روی آیتم‌های اعلان */
+.notification-dropdown-menu .dropdown-item {
+    transition: background-color 0.2s ease;
+    white-space: normal; /* اجازه شکستن متن‌های طولانی */
+}
+
+.notification-dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* دایره پس‌زمینه آیکون‌ها */
+.notification-dropdown-menu .icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* پالت رنگ‌های نرم و ملایم (Soft colors) */
+.bg-primary-soft {
+    background-color: rgba(88, 101, 242, 0.1) !important;
+}
+
+.bg-success-soft {
+    background-color: rgba(40, 167, 69, 0.1) !important;
+}
+
+.bg-warning-soft {
+    background-color: rgba(255, 193, 7, 0.1) !important;
+}
+
+/* ==========================================================================
+   تغییرات و هماهنگ‌سازی اختصاصی DataTables با تم مدرن
+   ========================================================================== */
+
+/* استایل کانتینر اصلی جدول */
+.dataTables_wrapper {
+    padding: 1rem 0;
+}
+
+/* هماهنگ‌سازی بخش هدر جدول */
+.table.dataTable thead th {
+    background-color: rgb(248, 249, 250) !important;
+    color: rgb(63, 66, 84) !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid var(--border-color) !important;
+    padding: 1rem 0.75rem !important;
+    font-size: 0.9rem !important;
+}
+
+/* استایل ردیف‌ها و سلول‌های بدنه جدول */
+.table.dataTable tbody td {
+    padding: 1rem 0.75rem !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    color: rgb(75, 79, 99);
+    font-size: 0.875rem;
+}
+
+/* هماهنگ‌سازی کادر جستجو با فرم‌های بوت‌استرپ */
+.dataTables_filter {
+    float: left !important; /* انتقال باکس جستجو به سمت چپ در RTL */
+    margin-bottom: 1.25rem !important;
+}
+
+.dataTables_filter label {
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.dataTables_filter input {
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0.5rem !important;
+    padding: 0.4rem 0.8rem !important;
+    margin-right: 0.5rem !important;
+    outline: none !important;
+    background-color: rgb(255, 255, 255) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.dataTables_filter input:focus {
+    border-color: var(--bs-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(88, 101, 242, 0.15) !important;
+}
+
+/* هماهنگ‌سازی بخش انتخاب تعداد ردیف (Show entries) */
+.dataTables_length {
+    float: right !important; /* انتقال به سمت راست در RTL */
+    margin-bottom: 1.25rem !important;
+}
+
+.dataTables_length label {
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.dataTables_length select {
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0.5rem !important;
+    padding: 0.4rem 1.5rem 0.4rem 0.5rem !important;
+    margin: 0 0.5rem !important;
+    outline: none !important;
+    background-color: rgb(255, 255, 255) !important;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   استایل جدید، مینیمال و بدون مرز دکمه‌های صفحه‌بندی (Borderless Pagination)
+   ========================================================================== */
+.dataTables_paginate {
+    float: left !important; /* انتقال به سمت چپ در RTL */
+    margin-top: 1.25rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important; /* فاصله ظریف بین دکمه‌ها */
+}
+
+/* استایل عمومی دکمه‌های عددی */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border: none !important; /* حذف کامل کادرهای دور دکمه */
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    font-size: 0.825rem !important;
+    font-weight: 500 !important;
+    width: 32px !important; /* ابعاد دایره‌ای یکنواخت */
+    height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important; /* دایره‌ای کردن دکمه‌ها */
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* حالت هاور (عبور موس) روی دکمه‌ها */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: rgba(88, 101, 242, 0.08) !important; /* بک‌گراند بسیار ملایم تم اصلی */
+    color: var(--bs-primary) !important;
+}
+
+/* دکمه صفحه فعال (Active) */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: var(--bs-primary) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 10px rgba(88, 101, 242, 0.25) !important; /* ایجاد سایه ملایم و ظریف */
+}
+
+/* دکمه‌های خاص "قبلی" و "بعدی" */
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next {
+    width: auto !important; /* طول خودکار برای جا شدن متن قبلی/بعدی */
+    padding: 0 10px !important;
+    border-radius: 8px !important; /* گوشه گرد کپسولی */
+}
+
+/* حالت غیرفعال دکمه‌های قبلی و بعدی */
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    background: transparent !important;
+    color: #c1c7d0 !important; /* خاکستری بسیار روشن */
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+}
+
+
+
+/* استایل بخش اطلاعات ردیف‌ها */
+.dataTables_info {
+    float: right !important; /* انتقال اطلاعات به سمت راست در RTL */
+    margin-top: 1.5rem !important;
+    color: var(--text-muted) !important;
+    font-size: 0.85rem !important;
+}
+
+/* تمیز کردن ساختار شناورها (Clearfix) */
+.dataTables_wrapper::after {
+    content: "" !important;
+    clear: both !important;
+    display: table !important;
+}
+

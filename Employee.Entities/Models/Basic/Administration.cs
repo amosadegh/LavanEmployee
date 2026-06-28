@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Employee.Entities.Models.Personel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -16,6 +17,6 @@ namespace Employee.Entities.Models.Basic
         [Required(ErrorMessage ="عنوان مدیریت را وارد نمایید")]
         [MaxLength(50,ErrorMessage ="{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? AdministrationTitle { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
+        public virtual ICollection<TblEmployee> Employees { get; set; } = new List<TblEmployee>();
     }
 }

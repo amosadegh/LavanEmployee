@@ -1,0 +1,133 @@
+﻿@model IEnumerable<TblEmployee>
+
+@{
+    ViewBag.Title = "لیست پرسنل";
+}
+<section class="content-header">
+    @*<h3>
+    مقادیر پایه
+    <small>لیست مقاطع تحصیلی</small>
+    </h3>*@
+    <ol class="breadcrumb">
+        <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li><a href="#">مقادیر پایه</a></li>
+        <li class="active">لیست پرسنل</li>
+    </ol>
+</section>
+<p style="margin-top:20px;margin-right:20px">
+    @Html.ActionLink("افزودن پرسنل جدید", "Create", "Employees", null, new { @class = "btn btn-sm btn-primary" })
+</p>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">لیست پرسنل</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <table id="tblList" class="table display table-striped table-bordered table-hover table-condensed table-responsive" style="width:95%;">
+                        <thead>
+                            <tr>
+                                <th>شماره پرسنلی</th>
+                                <th>کد ملی</th>
+                                <th>نام</th>
+                                <th>نام خانوادگی</th>
+                                <th>نام پدر</th>
+                                <th>سازمان</th>
+                                <th>سازمان فرعی</th>                               
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.EmployeeNumber</td>
+                                        <td>@item.NationalNumber</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Family</td>                                        
+                                        <td>@item.Father</td>
+                                        <td>@(item.Organization?.OrganizationTitle ?? "-")</td>
+                                        <td>@(item.SecondOrganization?.OrganizationTitle ?? "-")</td>
+                                       
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.EmpId" class="btn btn-primary btn-sm fa fa-edit"></a>
+                                            <a asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger btn-sm fa fa-trash"></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <!-- /.box -->
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+@section scripts
+{
+    <script src="~/Scripts/DataTable/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTable/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/DataTable/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/DataTable/responsive.bootstrap.min.js"></script>
+    <link href="~/Content/css/DataTable/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/DataTable/responsive.bootstrap.min.css" rel="stylesheet" />
+    <script>
+        var tblList;
+        $(document).ready(function () {
+            tblList = pageDT();
+            responsive = true;
+        });
+        function pageDT() {
+            var tblList = $("#tblList").DataTable({
+                "lengthChange": false,
+                "responsive": true,
+                "dom": ' <"search"f><"top"l>rt<"bottom"ip><"clear">',
+                "columnDefs": [
+                    { "width": "10%", "targets": 0 },
+                    { "width": "15%", "targets": 1 },
+                    { "width": "15%", "targets": 2 },
+                    { "width": "15%", "targets": 3 },
+                    { "width": "15%", "targets": 4 },
+                    { "width": "10%", "targets": 5 },                   
+                    { "width": "10%", "targets": 6, "orderable": false }
+                ],
+                "lengthMenu": [[20, 25, 50, -1], [20, 25, 50, "All"]],
+                "language":
+                {
+                    "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
+                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                    "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                    "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "نمایش _MENU_ رکورد",
+                    "sLoadingRecords": "در حال بارگزاری...",
+                    "sProcessing": "در حال پردازش...",
+                    "sSearch": "جستجو: ",
+                    "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                    "oPaginate": {
+                        "sFirst": "ابتدا",
+                        "sLast": "انتها",
+                        "sNext": "بعدی",
+                        "sPrevious": "قبلی"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
+                        "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+                    }
+                }
+            });
+            return tblList;
+        }
+    </script>
+}

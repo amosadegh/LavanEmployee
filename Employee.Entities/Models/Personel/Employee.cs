@@ -66,7 +66,7 @@ namespace Employee.Entities.Models.Personel
         public string? InsuranceType { get; set; }
 
         [MaxLength(50)]
-        public string? InsyranceNo { get; set; }
+        public string? InsuranceNo { get; set; }
 
         [MaxLength(50)]
         public string? InsuranceBranch { get; set; }

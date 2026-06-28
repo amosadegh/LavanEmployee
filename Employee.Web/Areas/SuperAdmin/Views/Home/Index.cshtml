@@ -1,5 +1,114 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<div class="row g-4">
+    <!-- Card 1 -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body d-flex align-items-center">
+                <div class="icon-circle bg-primary-soft me-3">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-1">تعداد پرسنل</h6>
+                    <h4 class="fw-bold mb-0">۱۲۵</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body d-flex align-items-center">
+                <div class="icon-circle bg-success-soft me-3">
+                    <i class="bi bi-calendar-check-fill"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-1">مرخصی‌های تایید شده</h6>
+                    <h4 class="fw-bold mb-0">۱۸</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body d-flex align-items-center">
+                <div class="icon-circle bg-warning-soft me-3">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-1">درخواست‌های در انتظار</h6>
+                    <h4 class="fw-bold mb-0">۵</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- بخش دسترسی سریع -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-transparent border-0 pt-4 pb-0">
+            <h5 class="card-title fw-bold text-dark m-0">دسترسی سریع</h5>
+            <p class="text-muted small mb-0">
+                میانبرهای پرکاربرد برای مدیریت سریع‌تر بخش‌های مختلف پنل
+            </p>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <!-- میانبر ۱: افزودن پرسنل جدید -->
+                <div class="col-6 col-md-3">
+                    <a href="add-personnel.html"
+                       class="quick-access-btn text-decoration-none d-flex flex-column align-items-center p-3 rounded-3">
+                        <div class="icon-circle bg-primary-soft text-primary mb-2">
+                            <i class="bi bi-person-plus-fill fs-4"></i>
+                        </div>
+                        <span class="fw-semibold text-dark fs-7">افزودن پرسنل</span>
+                    </a>
+                </div>
+
+                <!-- میانبر ۲: لیست پرسنل -->
+                <div class="col-6 col-md-3">
+                    <a href="personnel-list.html"
+                       class="quick-access-btn text-decoration-none d-flex flex-column align-items-center p-3 rounded-3">
+                        <div class="icon-circle bg-success-soft text-success mb-2">
+                            <i class="bi bi-people-fill fs-4"></i>
+                        </div>
+                        <span class="fw-semibold text-dark fs-7">لیست پرسنل</span>
+                    </a>
+                </div>
+
+                <!-- میانبر ۳: گزارشات عملکرد -->
+                <div class="col-6 col-md-3">
+                    <a href="#"
+                       class="quick-access-btn text-decoration-none d-flex flex-column align-items-center p-3 rounded-3">
+                        <div class="icon-circle bg-warning-soft text-warning mb-2">
+                            <i class="bi bi-bar-chart-line-fill fs-4"></i>
+                        </div>
+                        <span class="fw-semibold text-dark fs-7">گزارشات سیستم</span>
+                    </a>
+                </div>
+
+                <!-- میانبر ۴: تنظیمات -->
+                <div class="col-6 col-md-3">
+                    <a href="#"
+                       class="quick-access-btn text-decoration-none d-flex flex-column align-items-center p-3 rounded-3">
+                        <div class="icon-circle bg-info-soft text-info mb-2">
+                            <i class="bi bi-gear-wide-connected fs-4"></i>
+                        </div>
+                        <span class="fw-semibold text-dark fs-7">تنظیمات پنل</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activities Table -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>آخرین فعالیت‌ها</h5>
+    </div>
+    <div class="card-body">
+        <p>
+            در این بخش می‌توانید لیستی از آخرین فعالیت‌ها مانند ورود
+            کاربران، ثبت پرسنل جدید و... را نمایش دهید.
+        </p>
+    </div>
+</div>

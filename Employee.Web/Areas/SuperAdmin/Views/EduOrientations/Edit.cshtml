@@ -1,73 +1,32 @@
-﻿@model Employee.Entities.Models.Basic.EduOrientation
+﻿@model EduOrientation
 
 @{
-    ViewData["Title"] = "ویرایش گرایش رشته تحصیلی";
+    ViewData["Title"] = " ویراش گرایش رشته تحصیلی";
 }
-
-<section class="content-header" style="padding-bottom: 25px;">
-<ol class="breadcrumb">
-    @*  <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li> *@
-    <li><a href="#">مقادیر پایه</a></li>
-    <li class="active">ویرایش گرایش</li>
-</ol>
-</section>
-
-<div class="form-horizontal">
-    <section class="content">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box box-success">
-                    <div class="box-header">
-                        <h3 class="box-title">ویرایش</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <form asp-action="Edit">
-                            <input type="hidden" asp-for="EduOrientationId" />
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group">
-                                <div class="col-md-2 text-left">
-                                    <label asp-for="StudyFieldId" class="control-label"></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select asp-for="StudyFieldId" class="form-control" asp-items="ViewBag.StudyFieldId"></select>
-                                    <span asp-validation-for="StudyFieldId" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-2 text-left">
-                                    <label asp-for="EduOrientationTitle" class="control-label"></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input asp-for="EduOrientationTitle" class="form-control" />
-                                    <span asp-validation-for="EduOrientationTitle" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="ذخیره گرایش" class="btn btn-success" />
-                                    @* @Html.ActionLink("برگشت به لیست", "Index", null, new { @class = "btn btn-warning" }) *@
-                                    <a asp-action="Index" class="btn btn-warning">
-                                        بازگشت
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
+<h1 class="h3 mb-4 text-gray-800">ویرایش گرایش رشته </h1>
+<div class="card shadow-sm">
+    <div class="card-header">
+        فرم ویرایش گرایش رشته تحصیلی
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EduOrientationId" />
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="StudyField" class="form-label">رشته تحصیلی</label>
+                    <select asp-for="StudyField" class="form-select" asp-items="ViewBag.StudyFieldId"></select>
                 </div>
-                <!-- /.box-body -->
+                <div class="col-md-6 mb-3">
+                    <label asp-for="EduOrientationTitle" class="form-label">گرایش رشته تحصیلی</label>
+                    <input type="text" asp-for="EduOrientationTitle" class="form-control" id="position">
+                    <span asp-validation-for="EduOrientationTitle" class="text-danger"></span>
+                </div>
             </div>
-
-            <!-- /.box -->
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-
-    </section>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle me-2"></i>ذخیره اطلاعات
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">انصراف</a>
+        </form>
+    </div>
 </div>
-
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

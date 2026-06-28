@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Employee.Web.Data;
 using Employee.DataAccess.Repositories.Interfaces;
 using Employee.DataAccess.Repositories.Implementations;
+using Employee.DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -44,10 +45,12 @@ builder.Services.AddScoped<IOrganizationRepository,OrganizationRepository>();
 builder.Services.AddScoped<ISecondOrganizationRepository,SecondOrganizationRepository>();
 
 #endregion
+#region Employee
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+#endregion
 
 
 var app = builder.Build();
-
 
 // فراخوانی SeedRoles
 using (var scope = app.Services.CreateScope())

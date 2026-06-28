@@ -1,63 +1,32 @@
 ﻿@model StudyField
-
 @{
-    ViewData["Title"] = "ویرایش رشته تحصیلی";
+    ViewBag.Title = "ویرایش رشته تحصیلی";
 }
+<h1 class="h3 mb-4 text-gray-800">ویرایش رشته تحصیلی</h1>
 
-<section class="content-header" style="padding-bottom: 25px;">
-<ol class="breadcrumb">
-    @*  <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li> *@
-    <li><a href="#">مقادیر پایه</a></li>
-    <li class="active">ویرایش رشته تحصیلی</li>
-</ol>
-</section>
 
-<div class="form-horizontal">
-    <section class="content">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box box-success">
-                    <div class="box-header">
-                        <h3 class="box-title">ویرایش</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <form asp-action="Edit">
-                            <input type="hidden" asp-for="StudyFieldId" />
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group">
-                                <div class="col-md-2 text-left">
-                                    <label asp-for="StudyFieldTitle" class="control-label"></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input asp-for="StudyFieldTitle" class="form-control" />
-                                    <span asp-validation-for="StudyFieldTitle" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="ذخیره رشته تحصیی" class="btn btn-success" />
-                                    @* @Html.ActionLink("برگشت به لیست", "Index", null, new { @class = "btn btn-warning" }) *@
-                                    <a asp-action="Index" class="btn btn-warning">
-                                        بازگشت
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
+<div class="card shadow-sm">
+    <div class="card-header">
+        فرم ویرایش رشته تحصیلی
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="StudyFieldId" />
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="StudyFieldTitle" class="form-label">رشته تحصیلی</label>
+                    <input type="text" asp-for="StudyFieldTitle" class="form-control">
+                    <span asp-validation-for="StudyFieldTitle" class="text-danger"></span>
                 </div>
-                <!-- /.box-body -->
             </div>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle me-2"></i>ذخیره اطلاعات
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">انصراف</a>
 
-            <!-- /.box -->
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-
-    </section>
+        </form>
+    </div>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+

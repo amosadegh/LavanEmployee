@@ -15,7 +15,7 @@ namespace Employee.Entities.Models.Basic
         [DisplayName("عنوان سازمان")]
         [Required(ErrorMessage = "لطفاً {0} را وارد نمایید")]
         public int OrganizationId { get; set; }
-        [DisplayName("عنوان سازمان فرعی")]
+        [DisplayName("عنوان واحد سازمانی")]
         [Required(ErrorMessage = "لطفاً {0} را وارد نمایید")]
         [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? SecondOrganizationTitle { get; set; }

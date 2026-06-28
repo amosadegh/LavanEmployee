@@ -12,12 +12,11 @@ namespace Employee.Web.Areas.SuperAdmin.Controllers
         private readonly IProvinceRepository _provinceRepository = provinceRepository;
         public async Task<IActionResult> Index()
         {
-            var jobs = await _provinceRepository.GetAsync();
-            return View(jobs);
+            var provinces = await _provinceRepository.GetAsync();
+            return View(provinces);
         }
         public ActionResult Create()
         {
-
             return View();
         }
 

@@ -2,58 +2,31 @@
 
 @{
     ViewBag.Title = "مدیریت جدید";
-    Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
-} 
+}
 
-<section class="content-header" style="padding-bottom: 25px;">
-    <ol class="breadcrumb">
-       @*  <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li> *@
-        <li><a href="#">مقادیر پایه</a></li>
-        <li class="active">افزودن مدیریت جدید</li>
-    </ol>
-</section>
+<h1 class="h3 mb-4 text-gray-800">افزودن مدیریت جدید</h1>
 
-<div class="form-horizontal">
-    <section class="content">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box box-success">
-                    <div class="box-header">
-                        <h3 class="box-title">افزودن مدیریت جدید</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <form asp-action="Create">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>                           
-                            <div class="form-group">
-                                <div class="col-md-2 text-left">
-                                    <label asp-for="AdministrationTitle" class="control-label"></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input asp-for="AdministrationTitle" class="form-control" />
-                                    <span asp-validation-for="AdministrationTitle" class="text-danger"></span>
-                                </div> 
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="ذخیره مدیریت" class="btn btn-success" />
-                                    @* @Html.ActionLink("برگشت به لیست", "Index", null, new { @class = "btn btn-warning" }) *@
-                                    <a asp-action="Index" class="btn btn-warning">                                       
-                                        بازگشت
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
 
+<div class="card shadow-sm">
+    <div class="card-header">
+        فرم مدیریت جدید
+    </div>
+    <div class="card-body">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="AdministrationTitle" class="form-label">عنوان مدیریت</label>
+                    <input type="text" asp-for="AdministrationTitle" class="form-control">
+                    <span asp-validation-for="AdministrationTitle" class="text-danger"></span>
                 </div>
-                <!-- /.box-body -->
             </div>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle me-2"></i>ذخیره اطلاعات
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">انصراف</a>
 
-            <!-- /.box -->
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-
-    </section>
+        </form>
+    </div>
 </div>
