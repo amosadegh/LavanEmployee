@@ -30,7 +30,7 @@ namespace Employee.DataAccess.Data
         #endregion
         #region Personel    
         public DbSet<TblEmployee> Employees { get; set; }
-        #endregion
+        #endregion      
     }
 
 }

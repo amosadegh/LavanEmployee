@@ -9,10 +9,12 @@ using Employee.DataAccess.Data;
 using Employee.Entities.Models.Basic;
 using Employee.DataAccess.Repositories.Interfaces;
 using Employee.DataAccess.Repositories.Implementations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Employee.Web.Areas.SuperAdmin.Controllers
 {
     [Area("SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class ContractTypesController(IContractTypeRepository contractTypeRepository) : Controller
     {
         private readonly IContractTypeRepository _contractTypeRepository = (ContractTypeRepository)contractTypeRepository;

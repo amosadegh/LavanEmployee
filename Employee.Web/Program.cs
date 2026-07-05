@@ -10,17 +10,37 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
-    options.Password.RequireDigit = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 4;
+   options.Password.RequireNonAlphanumeric = false;
+   options.Password.RequiredLength = 4;
+   options.Password.RequireLowercase = false;
+   options.Password.RequireUppercase = false;
+   options.User.RequireUniqueEmail = true;
+   options.SignIn.RequireConfirmedEmail = false;
+   options.SignIn.RequireConfirmedAccount = false;
+   options.SignIn.RequireConfirmedPhoneNumber = false;
+   options.Lockout.MaxFailedAccessAttempts = 3;
+   options.Lockout.AllowedForNewUsers = true;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
-
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays(14); // تنظیم کوکی برای ۱۴ روز
+    options.SlidingExpiration = true; // تمدید خودکار اعتبار کوکی در هر درخواست
+});
 //#region User
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
 
@@ -75,7 +95,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+// Add HttpContextAccessor for session access
+builder.Services.AddHttpContextAccessor();
+
+// Add after app.UseRouting(); and before app.UseAuthentication();
+app.UseSession();
 
 #pragma warning disable ASP0014 // Suggest using top level route registrations
 app.UseEndpoints(endpoints =>
@@ -87,7 +113,7 @@ app.UseEndpoints(endpoints =>
     // مسیر پیش‌فرض
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+        pattern: "{controller=Account}/{action=Login}/{id?}");
 });
 #pragma warning restore ASP0014 // Suggest using top level route registrations
 

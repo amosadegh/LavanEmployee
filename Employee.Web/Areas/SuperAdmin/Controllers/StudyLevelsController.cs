@@ -1,12 +1,14 @@
 ﻿using Employee.DataAccess.Repositories.Implementations;
 using Employee.DataAccess.Repositories.Interfaces;
 using Employee.Entities.Models.Basic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Web.Areas.SuperAdmin.Controllers
 {
     [Area("SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class StudyLevelsController(IStudyLevelRepository studyLevelRepository) : Controller
     {
         private readonly IStudyLevelRepository _studyLevelRepository=studyLevelRepository;

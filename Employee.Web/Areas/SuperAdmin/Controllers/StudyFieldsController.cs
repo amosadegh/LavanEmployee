@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Employee.DataAccess.Data;
 using Employee.Entities.Models.Basic;
 using Employee.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Employee.Web.Areas.SuperAdmin.Controllers
 {
     [Area("SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class StudyFieldsController(IStudyFieldRepository studyFieldRepository) : Controller
     {
         private readonly IStudyFieldRepository _studyFieldRepository=studyFieldRepository;

@@ -1,7 +1,7 @@
 ﻿using Employee.DataAccess.Repositories.Interfaces;
 
 using Employee.Entities.Models.Basic;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Employee.Web.Areas.SuperAdmin.Controllers
@@ -9,7 +9,7 @@ namespace Employee.Web.Areas.SuperAdmin.Controllers
 {
 
     [Area("SuperAdmin")]
-
+    [Authorize(Roles = "SuperAdmin")]
     public class OrganizationsController(IOrganizationRepository organizationRepository) : Controller
 
     {

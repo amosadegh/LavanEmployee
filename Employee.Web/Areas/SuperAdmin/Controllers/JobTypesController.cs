@@ -1,11 +1,13 @@
 ﻿using Employee.DataAccess.Repositories.Interfaces;
 using Employee.Entities.Models.Basic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Web.Areas.SuperAdmin.Controllers
 {
     [Area("SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class JobTypesController(IJobTypeRepository jobTypeRepository) : Controller
     {
         private readonly IJobTypeRepository _jobTypeRepository = jobTypeRepository;

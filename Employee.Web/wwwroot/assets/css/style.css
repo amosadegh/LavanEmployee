@@ -17,6 +17,7 @@ body {
     direction: rtl;
     text-align: right;
     font-family: 'Vazirmatn', sans-serif;
+    /*font-feature-settings: "ss02" 1;*/ /* اعداد فارسی */
     background-color: var(--app-bg);
     color: var(--text-color);
     overflow-x: hidden;

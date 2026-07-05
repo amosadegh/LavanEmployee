@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Employee.Areas.Admin.Controllers
 {
     [Area("SuperAdmin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class EmployeesController : Controller
     {
         private readonly IEmployeeRepository _employeeRepo;

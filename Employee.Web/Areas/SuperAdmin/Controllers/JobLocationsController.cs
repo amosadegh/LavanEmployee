@@ -1,12 +1,13 @@
 ﻿using Employee.DataAccess.Repositories.Interfaces;
 using Employee.Entities.Models.Basic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Web.Areas.SuperAdmin.Controllers
 {
     [Area("SuperAdmin")]
-
+    [Authorize(Roles = "SuperAdmin")]
     public class JobLOcationsController(IJobLocationRepository jobLocationRepository) : Controller
     {
         private readonly IJobLocationRepository _jobLocationRepository = jobLocationRepository;
