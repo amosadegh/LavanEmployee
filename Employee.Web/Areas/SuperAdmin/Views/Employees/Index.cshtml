@@ -3,131 +3,61 @@
 @{
     ViewBag.Title = "لیست پرسنل";
 }
-<section class="content-header">
-    @*<h3>
-    مقادیر پایه
-    <small>لیست مقاطع تحصیلی</small>
-    </h3>*@
-    <ol class="breadcrumb">
-        <li><a href=@Url.Action("Index","Home")><i class="fa fa-dashboard"></i> خانه</a></li>
-        <li><a href="#">مقادیر پایه</a></li>
-        <li class="active">لیست پرسنل</li>
-    </ol>
-</section>
-<p style="margin-top:20px;margin-right:20px">
-    @Html.ActionLink("افزودن پرسنل جدید", "Create", "Employees", null, new { @class = "btn btn-sm btn-primary" })
-</p>
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">لیست پرسنل</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
 
-                    <table id="tblList" class="table display table-striped table-bordered table-hover table-condensed table-responsive" style="width:95%;">
-                        <thead>
+@section styles {
+
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h4 text-gray-800">@ViewBag.Title</h1>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-2"></i>افزودن پرسنل جدید
+    </a>
+</div>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive px-3">
+            <table id="tblList" class="table display table-striped table-bordered table-hover table-condensed table-responsive">
+
+                <thead>
+                    <tr>
+                        <th>شماره پرسنلی</th>
+                        <th>کد ملی</th>
+                        <th>نام</th>
+                        <th>نام خانوادگی</th>
+                        <th>نام پدر</th>
+                        <th>سازمان</th>
+                        <th>واحد سازمانی</th>                        
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th>شماره پرسنلی</th>
-                                <th>کد ملی</th>
-                                <th>نام</th>
-                                <th>نام خانوادگی</th>
-                                <th>نام پدر</th>
-                                <th>سازمان</th>
-                                <th>سازمان فرعی</th>                               
-                                <th>عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model != null && Model.Any())
-                            {
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.EmployeeNumber</td>
-                                        <td>@item.NationalNumber</td>
-                                        <td>@item.Name</td>
-                                        <td>@item.Family</td>                                        
-                                        <td>@item.Father</td>
-                                        <td>@(item.Organization?.OrganizationTitle ?? "-")</td>
-                                        <td>@(item.SecondOrganization?.OrganizationTitle ?? "-")</td>
-                                       
-                                        <td>
-                                            <a asp-action="Edit" asp-route-id="@item.EmpId" class="btn btn-primary btn-sm fa fa-edit"></a>
-                                            <a asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger btn-sm fa fa-trash"></a>
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.box-body -->
-            </div>
+                                <td>@item.EmployeeNumber</td>
+                                <td>@item.NationalNumber</td>
+                                <td>@item.Name</td>
+                                <td>@item.Family</td>
+                                <td>@item.Father</td>
+                                <td>@(item.Organization?.OrganizationTitle ?? "-")</td>
+                                <td>@(item.SecondOrganization?.OrganizationTitle ?? "-")</td>
 
-            <!-- /.box -->
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-    </div>
-</section>
-@section scripts
-{
-    <script src="~/Scripts/DataTable/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/DataTable/dataTables.bootstrap.min.js"></script>
-    <script src="~/Scripts/DataTable/dataTables.responsive.min.js"></script>
-    <script src="~/Scripts/DataTable/responsive.bootstrap.min.js"></script>
-    <link href="~/Content/css/DataTable/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/css/DataTable/responsive.bootstrap.min.css" rel="stylesheet" />
-    <script>
-        var tblList;
-        $(document).ready(function () {
-            tblList = pageDT();
-            responsive = true;
-        });
-        function pageDT() {
-            var tblList = $("#tblList").DataTable({
-                "lengthChange": false,
-                "responsive": true,
-                "dom": ' <"search"f><"top"l>rt<"bottom"ip><"clear">',
-                "columnDefs": [
-                    { "width": "10%", "targets": 0 },
-                    { "width": "15%", "targets": 1 },
-                    { "width": "15%", "targets": 2 },
-                    { "width": "15%", "targets": 3 },
-                    { "width": "15%", "targets": 4 },
-                    { "width": "10%", "targets": 5 },                   
-                    { "width": "10%", "targets": 6, "orderable": false }
-                ],
-                "lengthMenu": [[20, 25, 50, -1], [20, 25, 50, "All"]],
-                "language":
-                {
-                    "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
-                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
-                    "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
-                    "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ",",
-                    "sLengthMenu": "نمایش _MENU_ رکورد",
-                    "sLoadingRecords": "در حال بارگزاری...",
-                    "sProcessing": "در حال پردازش...",
-                    "sSearch": "جستجو: ",
-                    "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
-                    "oPaginate": {
-                        "sFirst": "ابتدا",
-                        "sLast": "انتها",
-                        "sNext": "بعدی",
-                        "sPrevious": "قبلی"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
-                        "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+                                <td>
+                                    <a href=@Url.Action("Edit", new {id = item.EmpId}) class="btn btn-sm btn-info text-white"><i class="bi bi-pencil-square"></i></a>
+                                    <a href=@Url.Action("Delete", new {id = item.EmpId}) class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            });
-            return tblList;
-        }
-    </script>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 }

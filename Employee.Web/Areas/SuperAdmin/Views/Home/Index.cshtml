@@ -54,8 +54,8 @@
             <div class="row g-3">
                 <!-- میانبر ۱: افزودن پرسنل جدید -->
                 <div class="col-6 col-md-3">
-                    <a href="add-personnel.html"
-                       class="quick-access-btn text-decoration-none d-flex flex-column align-items-center p-3 rounded-3">
+                    <a asp-area="SuperAdmin" asp-controller="Employees" asp-action="Create"
+                        class="quick-access-btn text-decoration-none d-flex flex-column align-items-center p-3 rounded-3">
                         <div class="icon-circle bg-primary-soft text-primary mb-2">
                             <i class="bi bi-person-plus-fill fs-4"></i>
                         </div>
@@ -65,7 +65,7 @@
 
                 <!-- میانبر ۲: لیست پرسنل -->
                 <div class="col-6 col-md-3">
-                    <a href="personnel-list.html"
+                    <a asp-area="SuperAdmin" asp-controller="Employees" asp-action="Index"
                        class="quick-access-btn text-decoration-none d-flex flex-column align-items-center p-3 rounded-3">
                         <div class="icon-circle bg-success-soft text-success mb-2">
                             <i class="bi bi-people-fill fs-4"></i>

@@ -1,95 +1,658 @@
 ﻿@model TblEmployee
 
 @{
-    ViewData["Title"] = "ویرایش کارمند";
+    ViewData["Title"] = "ویرایش پرسنل";
 }
 
-<div class="card shadow border-0 my-4">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-white py-2">ویرایش کارمند </h2>
+<h1 class="h3 mb-4 text-gray-800">ویرایش پرسنل </h1>
+
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+    <input type="hidden" asp-for="EmpId" />
+    <!-- Panel 1: هویتی -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel1" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            اطلاعات هویتی
+        </div>
+
+        <div id="panel1" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="EmployeeNumber" class="form-label"></label>
+                        <input asp-for="EmployeeNumber" class="form-control" />
+                        <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Family" class="form-label"></label>
+                        <input asp-for="Family" class="form-control" />
+                        <span asp-validation-for="Family" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Father" class="form-label"></label>
+                        <input asp-for="Father" class="form-control" />
+                        <span asp-validation-for="Father" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="IdentityNumber" class="form-label"></label>
+                        <input asp-for="IdentityNumber" class="form-control" />
+                        <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="NationalNumber" class="form-label"></label>
+                        <input asp-for="NationalNumber" class="form-control" />
+                        <span asp-validation-for="NationalNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="BirthDate" class="form-label"></label>
+                        <input asp-for="BirthDate" class="form-control datepicker" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="BirthProvince" class="form-label"></label>
+                        <select asp-for="BirthProvince" class="form-select select2" asp-items="ViewBag.Provinces">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="BirthProvince" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="BirthCity" class="form-label"></label>
+                        <select asp-for="BirthCity" class="form-select select2" asp-items="ViewBag.Cities">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="BirthCity" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="EntryProvince" class="form-label"></label>
+                        <select asp-for="EntryProvince" class="form-select select2" asp-items="ViewBag.Provinces">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="EntryProvince" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="EntryCity" class="form-label"></label>
+                        <select asp-for="EntryCity" class="form-select select2" asp-items="ViewBag.Cities">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="EntryCity" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="MaritalStatus" class="form-label"></label>
+                        <select asp-for="MaritalStatus" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="0">مجرد</option>
+                            <option value="1">متاهل</option>
+                        </select>
+                        <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="card-body p-4">
-        <form action="Edit" method="Post" class="row">
-            <div class="border p-3">
-                <div asp-validation-summary="ModelOnly"></div>
-                <input type="hidden" asp-for="EmpId"/>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="EmployeeNumber" class="form-control border-0 shadow" />
-                    <label asp-for="EmployeeNumber"></label>
-                    <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
-                </div>
 
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="NationalNumber" class="form-control border-0 shadow" />
-                    <label asp-for="NationalNumber"></label>
-                    <span asp-validation-for="NationalNumber" class="text-danger"></span>
-                </div>
-
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="Name" class="form-control border-0 shadow" />
-                    <label asp-for="Name"></label>
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="Family" class="form-control border-0 shadow" />
-                    <label asp-for="Family"></label>
-                    <span asp-validation-for="Family" class="text-danger"></span>
-                </div>
-
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="Mobile" class="form-control border-0 shadow" />
-                    <label asp-for="Mobile"></label>
-                    <span asp-validation-for="Mobile" class="text-danger"></span>
-                </div>
-
-                <div class="form-floating py-2 col-12">
-                    <select asp-for="JobId" asp-items="ViewBag.Jobs" class="form-select border-0 shadow">
-                        <option disabled selected>-- انتخاب کنید --</option>
-                    </select>
-                    <label asp-for="JobId"></label>
-                    <span asp-validation-for="JobId" class="text-danger"></span>
-                </div>
-
-                <div class="form-floating py-2 col-12">
-                    <select asp-for="OrganizationId" asp-items="ViewBag.Organizations" class="form-select border-0 shadow">
-                        <option disabled selected>-- انتخاب کنید --</option>
-                    </select>
-                    <label asp-for="OrganizationId"></label>
-                    <span asp-validation-for="OrganizationId" class="text-danger"></span>
-                </div>
-
-                <div class="form-floating py-2 col-12">
-                    <select asp-for="ContractTypeId" asp-items="ViewBag.ContractTypes" class="form-select border-0 shadow">
-                        <option disabled selected>-- انتخاب کنید --</option>
-                    </select>
-                    <label asp-for="ContractTypeId"></label>
-                    <span asp-validation-for="ContractTypeId" class="text-danger"></span>
-                </div>
-
-                <!-- سایر فیلدها به همین سبک -->
-
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">ایجاد</button>
+    <!-- Panel 2: آدرس -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel2" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            اطلاعات آدرس و تماس
+        </div>
+        <div id="panel2" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="HomeProvince" class="form-label"></label>
+                        <select asp-for="HomeProvince" class="form-select select2" asp-items="ViewBag.Province">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="HomeProvince" class="text-danger"></span>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-controller="Employees" asp-action="Index" class="btn btn-outline-primary border form-control">
-                            بازگشت
-                        </a>
+                    <div class="col-md-3">
+                        <label asp-for="HomeCity" class="form-label"></label>
+                        <select asp-for="HomeCity" class="form-select select2" asp-items="ViewBag.Province">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="HomeCity" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="PostalCode" class="form-label"></label>
+                        <input asp-for="PostalCode" class="form-control" />
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="HomeTel" class="form-label"></label>
+                        <input asp-for="HomeTel" class="form-control" />
+                        <span asp-validation-for="HomeTel" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Mobile" class="form-label"></label>
+                        <input asp-for="Mobile" class="form-control" />
+                        <span asp-validation-for="Mobile" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <label asp-for="Address" class="form-label"></label>
+                        <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+
+    <!-- Panel 3: نظام وظیفه -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel3" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            اطلاعات نظام وظیفه
+
+        </div>
+        <div id="panel3" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="MilitaryService" class="form-label"></label>
+                        <select asp-for="MilitaryService" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="0">دارد</option>
+                            <option value="1">معاف</option>
+                            <option value="2">در حال خدمت</option>
+                        </select>
+                        <span asp-validation-for="MilitaryService" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="MilitaryDate" class="form-label"></label>
+                        <input asp-for="MilitaryDate" class="form-control datepicker" />
+                        <span asp-validation-for="MilitaryDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="MilitaryExemptionType" class="form-label"></label>
+                        <input asp-for="MilitaryExemptionType" class="form-control" />
+                        <span asp-validation-for="MilitaryExemptionType" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 4: بیمه -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel4" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            اطلاعات بیمه
+        </div>
+        <div id="panel4" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="InsuranceType" class="form-label"></label>
+                        <input asp-for="InsuranceType" class="form-control" />
+                        <span asp-validation-for="InsuranceType" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="InsuranceNo" class="form-label"></label>
+                        <input asp-for="InsuranceNo" class="form-control" />
+                        <span asp-validation-for="InsuranceNo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="InsuranceBranch" class="form-label"></label>
+                        <input asp-for="InsuranceBranch" class="form-control" />
+                        <span asp-validation-for="InsuranceBranch" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="InsuranceOutOfCompany" class="form-label"></label>
+                        <input asp-for="InsuranceOutOfCompany" class="form-control" />
+                        <span asp-validation-for="InsuranceOutOfCompany" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 5: تحصیلی -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel5" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            اطلاعات تحصیلی
+        </div>
+        <div id="panel5" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="StudyLevelId" class="form-label"></label>
+                        <select asp-for="StudyLevelId" class="form-select select2" asp-items="ViewBag.StudyLevels">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="StudyLevelId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="StudyFieldId" class="form-label"></label>
+                        <select asp-for="StudyFieldId" class="form-select select2" asp-items="ViewBag.StudyFields">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="StudyFieldId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="EduOrientationId" class="form-label"></label>
+                        <select asp-for="EduOrientationId" class="form-select select2" asp-items="ViewBag.EduOrientations">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="EduOrientationId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 6: شغل -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel6" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            اطلاعات شغلی
+        </div>
+        <div id="panel6" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="ContractTypeId" class="form-label"></label>
+                        <select asp-for="ContractTypeId" class="form-select select2" asp-items="ViewBag.ContractTypes">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="ContractTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="JobId" class="form-label"></label>
+                        <select asp-for="JobId" class="form-select select2" asp-items="ViewBag.Jobs">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="JobId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="AdministrationId" class="form-label"></label>
+                        <select asp-for="AdministrationId" class="form-select select2" asp-items="ViewBag.Administrations">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="AdministrationId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="OrganizationId" class="form-label"></label>
+                        <select asp-for="OrganizationId" class="form-select select2" asp-items="ViewBag.Organizations">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="OrganizationId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="SecondOrganizationId" class="form-label"></label>
+                        <select asp-for="SecondOrganizationId" class="form-select select2" asp-items="ViewBag.Organizations">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="SecondOrganizationId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="JobLocId" class="form-label"></label>
+                        <select asp-for="JobLocId" class="form-select select2" asp-items="ViewBag.JobLocations">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="JobLocId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="JobTypeId" class="form-label"></label>
+                        <select asp-for="JobTypeId" class="form-select select2" asp-items="ViewBag.JobTypes">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="JobTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="WorkStartDate" class="form-label"></label>
+                        <input asp-for="WorkStartDate" class="form-control datepicker" />
+                        <span asp-validation-for="WorkStartDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 7: بانکی -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel7" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            اطلاعات بانکی
+        </div>
+        <div id="panel7" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="PayBank" class="form-label"></label>
+                        <select asp-for="PayBank" class="form-select select2" asp-items="ViewBag.Banks">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="PayBank" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="PayAccountNumber" class="form-label"></label>
+                        <input asp-for="PayAccountNumber" class="form-control" />
+                        <span asp-validation-for="PayAccountNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="PayShabaNumber" class="form-label"></label>
+                        <input asp-for="PayShabaNumber" class="form-control" />
+                        <span asp-validation-for="PayShabaNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="PayBackupBank" class="form-label"></label>
+                        <select asp-for="PayBackupBank" class="form-select select2" asp-items="ViewBag.Banks">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="PayBackupBank" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="PayBackupNumber" class="form-label"></label>
+                        <input asp-for="PayBackupNumber" class="form-control" />
+                        <span asp-validation-for="PayBackupNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="PayPackupShabaNumber" class="form-label"></label>
+                        <input asp-for="PayPackupShabaNumber" class="form-control" />
+                        <span asp-validation-for="PayPackupShabaNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 8: اسکان -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel8" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            اطلاعات اسکان
+
+        </div>
+        <div id="panel8" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="CampId" class="form-label"></label>
+                        <select asp-for="CampId" class="form-select select2" asp-items="ViewBag.Camps">
+                            <option value="">انتخاب کنید</option>
+                        </select>
+                        <span asp-validation-for="CampId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="RoomNo" class="form-label"></label>
+                        <input asp-for="RoomNo" class="form-control" type="text" />
+                        <span asp-validation-for="RoomNo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="RoomPhone" class="form-label"></label>
+                        <input asp-for="RoomPhone" class="form-control" type="text" />
+                        <span asp-validation-for="RoomPhone" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="WorkPhone" class="form-label"></label>
+                        <input asp-for="WorkPhone" class="form-control" />
+                        <span asp-validation-for="WorkPhone" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 9: فوق‌العاده‌ها -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header"
+             data-bs-toggle="collapse" data-bs-target="#panel9" style="cursor: pointer;">
+            <i class="bi bi-chevron-down toggle-icon"></i>
+            فوق‌العاده‌ها
+
+        </div>
+        <div id="panel9" class="collapse show">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="Pollution" class="form-label"></label>
+                        <select asp-for="Pollution" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="false">خیر</option>
+                            <option value="true">بله</option>
+                        </select>
+                        @*  <input type="checkbox"
+                        id="Pollution"
+                        name="Pollution"
+                        class="form-check-input"
+                        value="true"
+                        @(Model?.Pollution == true ? "checked" : "") />
+                        <label for="Pollution" class="form-check-label">آلودگی</label>
+                        <input type="hidden" name="Pollution" value="false" /> *@
+                        <span asp-validation-for="Pollution" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="PollutionPercent" class="form-label"></label>
+                        <input asp-for="PollutionPercent" class="form-control" type="text" />
+                        <span asp-validation-for="PollutionPercent" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="PollutionRow" class="form-label"></label>
+                        <input asp-for="PollutionRow" class="form-control" />
+                        <span asp-validation-for="PollutionRow" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Height" class="form-label"></label>
+                        <select asp-for="Height" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="false">خیر</option>
+                            <option value="true">بله</option>
+                        </select>
+                        <span asp-validation-for="Height" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="HeightMeter" class="form-label"></label>
+                        <input asp-for="HeightMeter" class="form-control" type="text" />
+                        <span asp-validation-for="HeightMeter" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Shift" class="form-label"></label>
+                        <select asp-for="Shift" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="false">خیر</option>
+                            <option value="true">بله</option>
+                        </select>
+                        <span asp-validation-for="Shift" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Welder" class="form-label"></label>
+                        <select asp-for="Welder" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="false">خیر</option>
+                            <option value="true">بله</option>
+                        </select>
+                        <span asp-validation-for="Welder" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="HardShip" class="form-label"></label>
+                        <select asp-for="HardShip" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="false">خیر</option>
+                            <option value="true">بله</option>
+                        </select>
+                        <span asp-validation-for="HardShip" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="SpecialExtraordinary" class="form-label"></label>
+                        <select asp-for="SpecialExtraordinary" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="false">خیر</option>
+                            <option value="true">بله</option>
+                        </select>
+                        <span asp-validation-for="SpecialExtraordinary" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ExpertiseExtraordinary" class="form-label"></label>
+                        <select asp-for="ExpertiseExtraordinary" class="form-select">
+                            <option value="">انتخاب کنید</option>
+                            <option value="false">خیر</option>
+                            <option value="true">بله</option>
+                        </select>
+                        <span asp-validation-for="ExpertiseExtraordinary" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="AnnualLeaveAmont" class="form-label"></label>
+                        <input asp-for="AnnualLeaveAmont" class="form-control" type="text" />
+                        <span asp-validation-for="AnnualLeaveAmont" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="RemainingAnnualLeave" class="form-label"></label>
+                        <input asp-for="RemainingAnnualLeave" class="form-control" type="text" />
+                        <span asp-validation-for="RemainingAnnualLeave" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- دکمه‌های عملیات -->
+    <!-- فوتر چسبان با دکمه‌های ذخیره و انصراف - نسخه Responsive -->
+    <div class="sticky-bottom bg-white border-top shadow-sm p-2 p-md-3 mt-4">
+        <div class="d-flex flex-column flex-sm-row justify-content-start gap-2">
+            <button type="submit" class="btn btn-success w-100 w-sm-auto">
+                <i class="bi bi-check-circle me-2"></i>ذخیره اطلاعات
+            </button>
+            <a asp-action="Index" class="btn btn-secondary w-100 w-sm-auto">انصراف</a>
+        </div>
+    </div>
+
+
+</form>
+
 
 @section Scripts {
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
+    <partial name="_ValidationScriptsPartial" />
+
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Persian Date Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // فعال‌سازی Select2
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+                dir: 'rtl',
+                language: 'fa',
+                placeholder: 'انتخاب کنید',
+                allowClear: true
+            });
+
+            // فعال‌سازی تقویم شمسی
+            $('.datepicker').persianDatepicker({
+                format: 'YYYY/MM/DD',
+                initialValue: false,
+                autoClose: true,
+                calendar: {
+                    persian: {
+                        locale: 'fa'
+                    }
+                },
+                navigator: {
+                    enabled: true
+                },
+                toolbox: {
+                    enabled: true
+                },
+                timePicker: {
+                    enabled: false
+                }
+            });
+
+            // چرخش آیکون collapse
+            $('.card-header[data-bs-toggle="collapse"]').on('click', function () {
+                const icon = $(this).find('.toggle-icon');
+                icon.toggleClass('rotate-180');
+            });
+
+            // جلوگیری از submit با Enter
+            $('form').on('keypress', function (e) {
+                if (e.which === 13 && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+    <style>
+        .sticky-bottom {
+            position: sticky;
+            bottom: 0;
+            z-index: 1020;
+        }
+
+        @@media (max-width: 576px) {
+            .sticky-bottom {
+                left: 0;
+                right: 0;
+                margin: 0 -12px;
+            }
+        }
+    </style>
+
+    <style>
+    
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+            .toggle-icon.rotate-180 {
+                transform: rotate(180deg);
+            }
+
+        .card-header {
+            user-select: none;
+        }
+
+        /*  .card-header:hover {
+                                        background-color: rgba(0, 0, 0, 0.05) !important;
+                                    } */
+
+        /* استایل Select2 برای RTL */
+        .select2-container--bootstrap-5 .select2-selection {
+            text-align: right;
+        }
+
+        .select2-container--bootstrap-5 .select2-dropdown {
+            text-align: right;
+        }
+
+        .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
+            padding-right: 15px;
+            padding-left: 20px;
+        }
+        /*  .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear,
+                .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear
+                {
+                    left:1.25rem !important;
+                }
+                */
+
+        /* استایل تقویم شمسی */
+        .pwt-btn-today {
+            direction: rtl;
+        }
+    </style>
 }

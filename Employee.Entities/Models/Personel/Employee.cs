@@ -1,4 +1,5 @@
 ﻿using Employee.Entities.Models.Basic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,145 +11,169 @@ namespace Employee.Entities.Models.Personel
         [Key]
         public int EmpId { get; set; }
 
-        [Required]
-        [MaxLength(10)]
+        [DisplayName(" شماره پرسنلی")]
+        [Required(ErrorMessage = "لطفاً {0} را وارد نمایید")]
+        [MaxLength(10, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string EmployeeNumber { get; set; } = string.Empty;
 
-        [MaxLength(50)]
-        public string? IdentityNumber { get; set; }
-
-        [MaxLength(10)]
-        public string? NationalNumber { get; set; }
-
-        [MaxLength(50)]
+        [DisplayName(" نام")]
+        [Required(ErrorMessage = "لطفاً {0} را وارد نمایید")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? Name { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName("نام خانوادگی ")]
+        [Required(ErrorMessage = "لطفاً {0} را وارد نمایید")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? Family { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" نام پدر")]
+       // [Required(ErrorMessage = "لطفاً {0} را وارد نمایید")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? Father { get; set; }
 
+        [DisplayName(" کد ملی ")]      
+        [MaxLength(10, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
+        public string? IdentityNumber { get; set; }
+
+        [DisplayName(" شماره شناسنامه")]
+        [MaxLength(10, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
+        public string? NationalNumber { get; set; }
+        [DisplayName(" تاریخ تولد")]
+      
         public DateOnly? BirthDate { get; set; }
-
-        public int? BirthProvice { get; set; }
-
+        [DisplayName(" استان محل تولد")]
+        public int? BirthProvince { get; set; }
+        [DisplayName(" شهر محل تولد")]
         public int? BirthCity { get; set; }
-
-        [MaxLength(10)]
+        [DisplayName(" استان محل صدور")]
+        public int? EntryProvince { get; set; }
+        [DisplayName(" شهر محل صدور")]
+        public int? EntryCity { get; set; }
+        [DisplayName(" وضعیت تاهل")]        
+        [MaxLength(10, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? MaritalStatus { get; set; }
-
+        [DisplayName(" استان محل سکونت")]
         public int? HomeProvince { get; set; }
-
+        [DisplayName(" شهر محل سکونت")]
         public int? HomeCity { get; set; }
-
-        [MaxLength(50)]
+        [DisplayName(" کد پستی ")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]    
         public string? PostalCode { get; set; }
-
-        [MaxLength(200)]
+        [DisplayName(" آدرس ")]
+        [MaxLength(200, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? Address { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" تلفن منزل ")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? HomeTel { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" موبایل ")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? Mobile { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" وضعیت نظام وظیفه ")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? MilitaryService { get; set; }
-
+        [DisplayName(" تاریخ پایان خدمت / معافیت ")]
+       
         public DateOnly? MilitaryDate { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" نوع معافیت ")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? MilitaryExemptionType { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName("  نوع بیمه")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? InsuranceType { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" شماره بیمه ")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? InsuranceNo { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" شعبه بیمه ")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? InsuranceBranch { get; set; }
 
-        public int? StudyLevelId { get; set; }
-
-        public int? StudyFieldId { get; set; }
-
-        public int? EduOrientationId { get; set; }
-
-        public int? ContractTypeId { get; set; }
-
-        public int? JobId { get; set; }
-
-        public int? AdministrationId { get; set; }
-
-        public int? OrganizationId { get; set; }
-
-        public int? SecondOrganizationId { get; set; }
-
-        public DateOnly? WorkStartDate { get; set; }
-
-        [MaxLength(50)]
+        [DisplayName(" مدت سوابق خارج از شرکت ")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? InsuranceOutOfCompany { get; set; }
-
-        public int? EntryProviance { get; set; }
-
-        public int? EntryCity { get; set; }
-
+        [DisplayName(" مقطع تحصیلی ")]
+     
+        public int? StudyLevelId { get; set; }
+        [DisplayName(" رشته تحصیلی ")]
+        public int? StudyFieldId { get; set; }
+        [DisplayName(" گرایش رشته تحصیلی ")]
+        public int? EduOrientationId { get; set; }
+        [DisplayName(" نوع قرارداد ")]
+        public int? ContractTypeId { get; set; }
+        [DisplayName(" شغل ")]
+        public int? JobId { get; set; }
+        [DisplayName(" مدیریت ")]
+        public int? AdministrationId { get; set; }
+        [DisplayName(" سازمان ")]
+        public int? OrganizationId { get; set; }
+        [DisplayName(" واحد سازمانی ")]
+        public int? SecondOrganizationId { get; set; }
+        [DisplayName(" محل خدمت ")]
+        public int? JobLocId { get; set; }
+        [DisplayName(" کد شغل ")]
+        public int? JobTypeId { get; set; }
+        [DisplayName(" تاریخ شروع به کار ")]
+        public DateOnly? WorkStartDate { get; set; }
+        [DisplayName(" بانک حقوق ")]
         public int? PayBank { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" شماره حساب حقوق")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? PayAccountNumber { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" شماره شبا حقوق")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? PayShabaNumber { get; set; }
-
+        [DisplayName(" بانک پشتیبان")]    
         public int? PayBackupBank { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" شماره حساب پشتیبان")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? PayBackupNumber { get; set; }
 
-        [MaxLength(50)]
+        [DisplayName(" شماره شبا پشتیبان")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? PayPackupShabaNumber { get; set; }
-
+        [DisplayName(" کمپ  ")]       
         public int? CampId { get; set; }
-
+        [DisplayName(" اتاق ")]
         public int? RoomNo { get; set; }
-
+        [DisplayName(" تلفن اتاق  ")]
         public int? RoomPhone { get; set; }
-
-        [MaxLength(20)]
+        [DisplayName(" تلفن محل کار")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? WorkPhone { get; set; }
-
-        public bool? Pollution { get; set; }
-
+        [DisplayName(" آلایندگی ")]
+        public bool? Pollution { get; set; } 
+        [DisplayName(" درصد آلایندگی ")]
         public double? PollutionPercent { get; set; }
-
-        [MaxLength(50)]
+        [DisplayName(" ردیف تعلق آلایندگی")]
+        [MaxLength(50, ErrorMessage = "{0} نباید بیشتر از {1} کاراکتر باشد")]
         public string? PollutionRow { get; set; }
-
-        public bool? Height { get; set; }
-
+        [DisplayName(" حق ارتفاع ")]
+        public bool? Height { get; set; } 
+        [DisplayName(" متر حق ارتفاع  ")]
         public double? HeightMeter { get; set; }
-
+        [DisplayName(" نوبتکار ")]
         public bool? Shift { get; set; }
-
-        public bool? Welder { get; set; }
-
-        public bool? HardShip { get; set; }
-
-        public bool? SpecialExtraordinary { get; set; }
-
+        [DisplayName(" جوشکاری ")]
+        public bool? Welder { get; set; } 
+        [DisplayName(" شرایط سخت ")]
+        public bool? HardShip { get; set; } 
+        [DisplayName(" فوق العاده مخصوص  ")]
+        public bool? SpecialExtraordinary { get; set; } 
+        [DisplayName(" فوق العاده تخصصی  ")]
         public bool? ExpertiseExtraordinary { get; set; }
-
+        [DisplayName(" مقدار مرخصی سالیانه ")]
         public int? AnnualLeaveAmont { get; set; }
-
-        public int? RemainingAnnualLeave { get; set; }
-
-        public int? JobLocId { get; set; }
-
-        public int? JobTypeId { get; set; }
+        [DisplayName(" مانده مرخصی سالیانه ")]
+        public int? RemainingAnnualLeave { get; set; }     
 
         // ── Navigation Properties ──────────────────────────────
 
@@ -200,13 +225,13 @@ namespace Employee.Entities.Models.Personel
         [ForeignKey(nameof(StudyFieldId))]
         public virtual StudyField? StudyField { get; set; }
 
-        [ForeignKey(nameof(BirthProvice))]
-        public virtual Province? BirthProvince { get; set; }
+        [ForeignKey(nameof(BirthProvince))]
+        public virtual Province? BirthProvinceNavigation { get; set; }
 
         [ForeignKey(nameof(HomeProvince))]
         public virtual Province? HomeProvinceNavigation { get; set; }
 
-        [ForeignKey(nameof(EntryProviance))]
+        [ForeignKey(nameof(EntryProvince))]
         public virtual Province? EntryProvinceNavigation { get; set; }
     }
 }

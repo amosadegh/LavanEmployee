@@ -74,7 +74,7 @@ public async Task<TblEmployee?> GetByIdAsync(int id)
                 .Include(e => e.EntryCityNavigation)
                 .Include(e => e.BirthProvince)
                 .Include(e => e.HomeProvince)
-                .Include(e => e.EntryProviance)
+                .Include(e => e.EntryProvince)
                 .Include(e => e.StudyLevel)
                 .Include(e => e.StudyField)
                 .FirstOrDefaultAsync(e => e.EmpId == id);

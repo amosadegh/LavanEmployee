@@ -88,7 +88,7 @@ namespace Employee.Areas.Admin.Controllers
 
             return View(employees ?? Enumerable.Empty<TblEmployee>());
         }
-
+        
 
         //// GET: GetAll (AJAX)
 
@@ -134,7 +134,7 @@ namespace Employee.Areas.Admin.Controllers
                 {
                     // پسورد پیش‌فرض را بعد از ذخیره Employee تنظیم می‌کنیم
                     // پس اینجا یک پسورد موقت بدهید
-                    string tempPassword = "Temp@123456";
+                    string tempPassword = employee.EmployeeNumber;
 
                     var result = await _employeeRepo.AddEmployeeWithUserAsync(employee, tempPassword);
 
@@ -158,6 +158,24 @@ namespace Employee.Areas.Admin.Controllers
             // بارگذاری DropDowns در صورت خطا
             await PopulateDropDowns(employee);
             return View(employee);
+        }
+
+        // GET: Edit
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _employeeRepo.GetSingleAsync(c => c.EmpId == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            await PopulateDropDowns();
+            return View(employee);
+
         }
 
         // POST: Edit
@@ -196,13 +214,16 @@ namespace Employee.Areas.Admin.Controllers
                 await _adminRepo.GetAsync(), "AdministrationId", "AdministrationTitle", employee?.AdministrationId);
 
             ViewBag.Banks = new SelectList(
-                await _bankRepo.GetAsync(), "BankId", "BankName", employee?.PayBank);
+                await _bankRepo.GetAsync(), "BankId", "BankTitle");
 
             ViewBag.Camps = new SelectList(
                 await _campRepo.GetAsync(), "CampId", "CampTitle", employee?.CampId);
 
+            ViewBag.Provinces = new SelectList(
+               await _provinceRepo.GetAsync(), "Id", "Name");
+
             ViewBag.Cities = new SelectList(
-                await _cityRepo.GetAsync(), "Id", "Name", employee?.HomeCity);
+                await _cityRepo.GetAsync(), "Id", "Name");
 
             ViewBag.ContractTypes = new SelectList(
                 await _contractRepo.GetAsync(), "ContractTypeId", "ContractTypeTitle", employee?.ContractTypeId);
@@ -221,9 +242,6 @@ namespace Employee.Areas.Admin.Controllers
 
             ViewBag.Organizations = new SelectList(
                 await _orgRepo.GetAsync(), "OrganizationId", "OrganizationTitle", employee?.OrganizationId);
-
-            ViewBag.Provinces = new SelectList(
-                await _provinceRepo.GetAsync(), "Id", "Name", employee?.HomeProvince);
 
             ViewBag.StudyFields = new SelectList(
                 await _studyFieldRepo.GetAsync(), "StudyFieldId", "StudyFieldTitle", employee?.StudyFieldId);
