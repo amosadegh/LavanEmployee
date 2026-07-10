@@ -22,6 +22,536 @@ namespace Employee.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Administration", b =>
+                {
+                    b.Property<int>("AdministrationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdministrationId"));
+
+                    b.Property<string>("AdministrationTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("AdministrationId");
+
+                    b.ToTable("Administrations");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Bank", b =>
+                {
+                    b.Property<int>("BankId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BankId"));
+
+                    b.Property<string>("BankTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("BankId");
+
+                    b.ToTable("Banks");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Camp", b =>
+                {
+                    b.Property<int>("CampId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CampId"));
+
+                    b.Property<string>("CampTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("CampId");
+
+                    b.ToTable("Camps");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.ContractType", b =>
+                {
+                    b.Property<int>("ContractTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContractTypeId"));
+
+                    b.Property<string>("ContractTypeTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ContractTypeId");
+
+                    b.ToTable("ContractTypes");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.EduOrientation", b =>
+                {
+                    b.Property<int>("EduOrientationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EduOrientationId"));
+
+                    b.Property<string>("EduOrientationTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("StudyFieldId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EduOrientationId");
+
+                    b.HasIndex("StudyFieldId");
+
+                    b.ToTable("EduOrientations");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Job", b =>
+                {
+                    b.Property<int>("JobId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JobId"));
+
+                    b.Property<bool>("JobDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("JobId");
+
+                    b.ToTable("Jobs");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.JobLocation", b =>
+                {
+                    b.Property<int>("JobLocId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JobLocId"));
+
+                    b.Property<string>("JobLocTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("JobLocId");
+
+                    b.ToTable("JobLocations");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.JobType", b =>
+                {
+                    b.Property<int>("JobTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JobTypeId"));
+
+                    b.Property<int>("JobTypeCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JobTypeTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("JobTypeId");
+
+                    b.ToTable("JobTypes");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Organization", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganizationId"));
+
+                    b.Property<string>("OrganizationTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("OrganizationId");
+
+                    b.ToTable("Organizations");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Province", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Provinces");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.SecondOrganization", b =>
+                {
+                    b.Property<int>("SecondOrganizationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SecondOrganizationId"));
+
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SecondOrganizationTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("SecondOrganizationId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("SecondOrganizations");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.StudyField", b =>
+                {
+                    b.Property<int>("StudyFieldId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudyFieldId"));
+
+                    b.Property<string>("StudyFieldTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("StudyFieldId");
+
+                    b.ToTable("StudyFields");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.StudyLevel", b =>
+                {
+                    b.Property<int>("StudyLevelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudyLevelId"));
+
+                    b.Property<string>("StudyLevelTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("StudyLevelId");
+
+                    b.ToTable("StudyLevels");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Personel.TblEmployee", b =>
+                {
+                    b.Property<int>("EmpId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmpId"));
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("AdministrationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AnnualLeaveAmont")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BirthCity")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly?>("BirthDate")
+                        .HasColumnType("date");
+
+                    b.Property<int?>("BirthProvince")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CampId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ContractTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EduOrientationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmployeeNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int?>("EntryCity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EntryProvince")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("ExpertiseExtraordinary")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Family")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Father")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool?>("HardShip")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Height")
+                        .HasColumnType("bit");
+
+                    b.Property<double?>("HeightMeter")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("HomeCity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HomeProvince")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HomeTel")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("IdentityNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("InsuranceBranch")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("InsuranceNo")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("InsuranceOutOfCompany")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("InsuranceType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("JobLocId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("JobTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaritalStatus")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateOnly?>("MilitaryDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("MilitaryExemptionType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MilitaryService")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Mobile")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NationalNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PayAccountNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("PayBackupBank")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PayBackupNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("PayBank")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PayPackupShabaNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PayShabaNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool?>("Pollution")
+                        .HasColumnType("bit");
+
+                    b.Property<double?>("PollutionPercent")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PollutionRow")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("RemainingAnnualLeave")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RoomNo")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RoomPhone")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SecondOrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("Shift")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("SpecialExtraordinary")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("StudyFieldId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StudyLevelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool?>("Welder")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("WorkPhone")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateOnly?>("WorkStartDate")
+                        .HasColumnType("date");
+
+                    b.HasKey("EmpId");
+
+                    b.HasIndex("AdministrationId");
+
+                    b.HasIndex("BirthCity");
+
+                    b.HasIndex("BirthProvince");
+
+                    b.HasIndex("CampId");
+
+                    b.HasIndex("ContractTypeId");
+
+                    b.HasIndex("EduOrientationId");
+
+                    b.HasIndex("EntryCity");
+
+                    b.HasIndex("EntryProvince");
+
+                    b.HasIndex("HomeCity");
+
+                    b.HasIndex("HomeProvince");
+
+                    b.HasIndex("JobId");
+
+                    b.HasIndex("JobLocId");
+
+                    b.HasIndex("JobTypeId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("PayBackupBank");
+
+                    b.HasIndex("PayBank");
+
+                    b.HasIndex("SecondOrganizationId");
+
+                    b.HasIndex("StudyFieldId");
+
+                    b.HasIndex("StudyLevelId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -220,6 +750,162 @@ namespace Employee.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Employee.Entities.Models.Basic.City", b =>
+                {
+                    b.HasOne("Employee.Entities.Models.Basic.Province", "Province")
+                        .WithMany("Cities")
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Province");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.EduOrientation", b =>
+                {
+                    b.HasOne("Employee.Entities.Models.Basic.StudyField", "StudyField")
+                        .WithMany("EduOrientations")
+                        .HasForeignKey("StudyFieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StudyField");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.SecondOrganization", b =>
+                {
+                    b.HasOne("Employee.Entities.Models.Basic.Organization", "Organization")
+                        .WithMany("SecondOrganizations")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Personel.TblEmployee", b =>
+                {
+                    b.HasOne("Employee.Entities.Models.Basic.Administration", "Administration")
+                        .WithMany("Employees")
+                        .HasForeignKey("AdministrationId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.City", "BirthCityNavigation")
+                        .WithMany()
+                        .HasForeignKey("BirthCity");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Province", "BirthProvinceNavigation")
+                        .WithMany()
+                        .HasForeignKey("BirthProvince");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Camp", "Camp")
+                        .WithMany()
+                        .HasForeignKey("CampId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.ContractType", "ContractType")
+                        .WithMany()
+                        .HasForeignKey("ContractTypeId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.EduOrientation", "EduOrientation")
+                        .WithMany()
+                        .HasForeignKey("EduOrientationId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.City", "EntryCityNavigation")
+                        .WithMany()
+                        .HasForeignKey("EntryCity");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Province", "EntryProvinceNavigation")
+                        .WithMany()
+                        .HasForeignKey("EntryProvince");
+
+                    b.HasOne("Employee.Entities.Models.Basic.City", "HomeCityNavigation")
+                        .WithMany()
+                        .HasForeignKey("HomeCity");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Province", "HomeProvinceNavigation")
+                        .WithMany()
+                        .HasForeignKey("HomeProvince");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.JobLocation", "JobLocation")
+                        .WithMany()
+                        .HasForeignKey("JobLocId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.JobType", "JobType")
+                        .WithMany()
+                        .HasForeignKey("JobTypeId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Bank", "PayBackupBankNavigation")
+                        .WithMany()
+                        .HasForeignKey("PayBackupBank");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Bank", "PayBankNavigation")
+                        .WithMany()
+                        .HasForeignKey("PayBank");
+
+                    b.HasOne("Employee.Entities.Models.Basic.Organization", "SecondOrganization")
+                        .WithMany()
+                        .HasForeignKey("SecondOrganizationId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.StudyField", "StudyField")
+                        .WithMany()
+                        .HasForeignKey("StudyFieldId");
+
+                    b.HasOne("Employee.Entities.Models.Basic.StudyLevel", "StudyLevel")
+                        .WithMany()
+                        .HasForeignKey("StudyLevelId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Administration");
+
+                    b.Navigation("BirthCityNavigation");
+
+                    b.Navigation("BirthProvinceNavigation");
+
+                    b.Navigation("Camp");
+
+                    b.Navigation("ContractType");
+
+                    b.Navigation("EduOrientation");
+
+                    b.Navigation("EntryCityNavigation");
+
+                    b.Navigation("EntryProvinceNavigation");
+
+                    b.Navigation("HomeCityNavigation");
+
+                    b.Navigation("HomeProvinceNavigation");
+
+                    b.Navigation("Job");
+
+                    b.Navigation("JobLocation");
+
+                    b.Navigation("JobType");
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("PayBackupBankNavigation");
+
+                    b.Navigation("PayBankNavigation");
+
+                    b.Navigation("SecondOrganization");
+
+                    b.Navigation("StudyField");
+
+                    b.Navigation("StudyLevel");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -269,6 +955,26 @@ namespace Employee.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Administration", b =>
+                {
+                    b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Organization", b =>
+                {
+                    b.Navigation("SecondOrganizations");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.Province", b =>
+                {
+                    b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("Employee.Entities.Models.Basic.StudyField", b =>
+                {
+                    b.Navigation("EduOrientations");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,7 +14,7 @@ namespace Employee.Entities.ViewModels.User
         //[EmailAddress]
         [DisplayName("شماره پرسنلی")]
         public string? EmployeeNumber { get; set; }
-        [Required(ErrorMessage = "رمز را وارد نمایدد")]
+        [Required(ErrorMessage = "رمز را وارد نمایید")]
         [DataType(DataType.Password)]
         [DisplayName("رمز ورود")]
         public string? Password { get; set; }

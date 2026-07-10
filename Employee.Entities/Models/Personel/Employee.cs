@@ -2,7 +2,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Microsoft.AspNetCore.Identity;
+using Employee.Entities.Models.User;
 namespace Employee.Entities.Models.Personel
 {
     [Table("Employees")]
@@ -173,9 +174,15 @@ namespace Employee.Entities.Models.Personel
         [DisplayName(" مقدار مرخصی سالیانه ")]
         public int? AnnualLeaveAmont { get; set; }
         [DisplayName(" مانده مرخصی سالیانه ")]
-        public int? RemainingAnnualLeave { get; set; }     
+        public int? RemainingAnnualLeave { get; set; }
+        // ✅ اضافه شد
+        [MaxLength(450)]
+        public string? UserId { get; set; }
 
         // ── Navigation Properties ──────────────────────────────
+        // ✅ اضافه شد
+        [ForeignKey(nameof(UserId))]
+        public virtual ApplicationUser? ApplicationUser { get; set; }
 
         [ForeignKey(nameof(AdministrationId))]
         public virtual Administration? Administration { get; set; }

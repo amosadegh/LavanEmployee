@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 namespace Employee.DataAccess.Repositories.Interfaces
 {
     public interface ISecondOrganizationRepository:IRepository<SecondOrganization>
-    {
+    {      
+
         bool SecondOrganizationExists(int id);
+
     }
 }

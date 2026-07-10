@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Employee.Entities.Models.Basic;
 using Employee.Entities.Models.Personel;
+using Employee.Entities.Models.User;
 
 namespace Employee.DataAccess.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -22,7 +23,7 @@ namespace Employee.DataAccess.Data
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<SecondOrganization> SecondOrganizations { get; set; }
         public DbSet<Camp> Camps { get; set; }
-        public  DbSet<Bank> Banks { get; set; }
+        public DbSet<Bank> Banks { get; set; }
         public DbSet<JobLocation> JobLocations { get; set; }
         public DbSet<JobType> JobTypes { get; set; }
         public DbSet<Province> Provinces { get; set; }
@@ -30,7 +31,17 @@ namespace Employee.DataAccess.Data
         #endregion
         #region Personel    
         public DbSet<TblEmployee> Employees { get; set; }
-        #endregion      
-    }
+        #endregion
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<TblEmployee>()
+                .HasOne(e => e.ApplicationUser)
+                .WithOne(u => u.Employee)
+                .HasForeignKey<TblEmployee>(e => e.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
+        }
+    }
 }

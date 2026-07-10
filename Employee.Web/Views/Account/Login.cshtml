@@ -19,7 +19,7 @@
 <div class="auth-wrapper">
     <div class="card shadow-lg auth-card">
         <div class="card-body p-5">
-            <h3 class="card-title text-center mb-4">ورود به پنل</h3>
+            <h3 class="card-title text-center mb-4">ورود به پنل مدیریت</h3>
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />

@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System;
 using Microsoft.EntityFrameworkCore;
+using Employee.Entities.Models.User;
 
 namespace Employee.Web.Controllers
 {
-    public class AccountController(SignInManager<IdentityUser> signInManager,
-        UserManager<IdentityUser> userManager,
+    public class AccountController(SignInManager<ApplicationUser> signInManager,
+        UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager): Controller
     {        
-        private readonly SignInManager<IdentityUser> signInManager = signInManager;
-    private readonly UserManager<IdentityUser> userManager = userManager;
+        private readonly SignInManager<ApplicationUser> signInManager = signInManager;
+    private readonly UserManager<ApplicationUser> userManager = userManager;
     private readonly RoleManager<IdentityRole> roleManager = roleManager;
 
 

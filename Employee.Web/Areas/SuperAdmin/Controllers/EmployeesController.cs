@@ -3,6 +3,7 @@ using Employee.DataAccess.Repositories.Interfaces;
 using Employee.DataAccess.Repository;
 using Employee.Entities.Models.Basic;
 using Employee.Entities.Models.Personel;
+using Employee.Entities.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,10 +27,11 @@ namespace Employee.Areas.Admin.Controllers
         private readonly IRepository<JobLocation> _jobLocRepo;
         private readonly IRepository<JobType> _jobTypeRepo;
         private readonly IRepository<Organization> _orgRepo;
+        private readonly IRepository<SecondOrganization> _secOrgRepo;
         private readonly IRepository<Province> _provinceRepo;
         private readonly IRepository<StudyField> _studyFieldRepo;
         private readonly IRepository<StudyLevel> _studyLevelRepo;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
 
         public EmployeesController(
@@ -44,10 +46,11 @@ namespace Employee.Areas.Admin.Controllers
             IRepository<JobLocation> jobLocRepo,
             IRepository<JobType> jobTypeRepo,
             IRepository<Organization> orgRepo,
+            IRepository<SecondOrganization> secOrgRepo,
             IRepository<Province> provinceRepo,
             IRepository<StudyField> studyFieldRepo,
             IRepository<StudyLevel> studyLevelRepo,
-            UserManager<IdentityUser> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             _employeeRepo = employeeRepo;
             _adminRepo = adminRepo;
@@ -60,6 +63,7 @@ namespace Employee.Areas.Admin.Controllers
             _jobLocRepo = jobLocRepo;
             _jobTypeRepo = jobTypeRepo;
             _orgRepo = orgRepo;
+            _secOrgRepo = secOrgRepo;
             _provinceRepo = provinceRepo;
             _studyFieldRepo = studyFieldRepo;
             _studyLevelRepo = studyLevelRepo;
@@ -71,6 +75,7 @@ namespace Employee.Areas.Admin.Controllers
         {
             var employees = await _employeeRepo.GetAsync(
                 include: query => query
+                    .Include(e => e.ApplicationUser)
                     .Include(e => e.Administration)
                     .Include(e => e.PayBankNavigation)
                     .Include(e => e.PayBackupBankNavigation)
@@ -88,32 +93,6 @@ namespace Employee.Areas.Admin.Controllers
 
             return View(employees ?? Enumerable.Empty<TblEmployee>());
         }
-        
-
-        //// GET: GetAll (AJAX)
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    var employees = await _employeeRepo.GetAsync(
-        //        include: query => query
-        //            .Include(e => e.Administration)
-        //            .Include(e => e.PayBankNavigation)
-        //            .Include(e => e.Camp)
-        //            .Include(e => e.HomeCityNavigation)
-        //            .Include(e => e.ContractType)
-        //            .Include(e => e.EduOrientation)
-        //            .Include(e => e.JobLocation)
-        //            .Include(e => e.Job)
-        //            .Include(e => e.JobType)
-        //            .Include(e => e.Organization)
-        //            .Include(e => e.StudyLevel)
-        //            .Include(e => e.StudyField)
-        //            .Include(e => e.HomeProvinceNavigation)
-        //    );
-
-        //    return Json(new { data = employees });
-        //}
 
 
         // GET: Create
@@ -208,6 +187,52 @@ namespace Employee.Areas.Admin.Controllers
             return Json(new { success = true, message = "کارمند حذف شد" });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetSecondOrganizations(int organizationId)
+        {
+            if (organizationId <= 0)
+                return Json(Array.Empty<object>());
+
+            var secondOrganizations = await _secOrgRepo.GetAsync(
+                x => x.OrganizationId == organizationId);
+
+            var result = secondOrganizations.Select(x => new
+            {
+                id = x.SecondOrganizationId,
+                title = x.SecondOrganizationTitle
+            });
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCities(int provinceId)
+        {
+            if (provinceId <= 0)
+                return Json(Array.Empty<object>());
+
+            var cities = await _cityRepo.GetAsync(x => x.ProvinceId == provinceId);
+            var result = cities.Select(x => new { id = x.Id, text = x.Name });
+            return Json(result);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetEduOrientations(int? studyFieldId)
+        {
+            if (studyFieldId == null)
+                return Json(Array.Empty<object>());
+
+            var orientations = await _eduOrientationRepo.GetAsync(
+                x => x.StudyFieldId == studyFieldId);
+
+            return Json(orientations.Select(o => new
+            {
+                id = o.EduOrientationId,
+                title = o.EduOrientationTitle
+            }));
+        }
+
         private async Task PopulateDropDowns(TblEmployee? employee = null)
         {
             ViewBag.Administrations = new SelectList(
@@ -243,11 +268,22 @@ namespace Employee.Areas.Admin.Controllers
             ViewBag.Organizations = new SelectList(
                 await _orgRepo.GetAsync(), "OrganizationId", "OrganizationTitle", employee?.OrganizationId);
 
+            var secondOrgs = employee?.OrganizationId is int orgId
+                ? await _secOrgRepo.GetAsync(x => x.OrganizationId == orgId)
+                : Enumerable.Empty<SecondOrganization>();
+
+            ViewBag.SecondOrganizations = new SelectList(
+                secondOrgs,
+                "SecondOrganizationId",
+                "SecondOrganizationTitle",
+                employee?.SecondOrganizationId);
+
             ViewBag.StudyFields = new SelectList(
                 await _studyFieldRepo.GetAsync(), "StudyFieldId", "StudyFieldTitle", employee?.StudyFieldId);
 
             ViewBag.StudyLevels = new SelectList(
                 await _studyLevelRepo.GetAsync(), "StudyLevelId", "StudyLevelTitle", employee?.StudyLevelId);
         }
+
     }
 }

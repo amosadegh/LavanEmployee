@@ -4,19 +4,17 @@
     ViewData["Title"] = "افزودن پرسنل";
 }
 
-<h1 class="h3 mb-4 text-gray-800">  افزودن پرسنل جدید </h1>
-
+<h1 class="h3 mb-4 text-gray-800">افزودن پرسنل جدید</h1>
 
 <form asp-action="Create">
-    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>  
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
     <!-- Panel 1: هویتی -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel1" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel1" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             اطلاعات هویتی
         </div>
-
         <div id="panel1" class="collapse show">
             <div class="card-body">
                 <div class="row g-3">
@@ -64,7 +62,7 @@
                     </div>
                     <div class="col-md-3">
                         <label asp-for="BirthCity" class="form-label"></label>
-                        <select asp-for="BirthCity" class="form-select select2" asp-items="ViewBag.Cities">
+                        <select asp-for="BirthCity" class="form-select select2">
                             <option value="">انتخاب کنید</option>
                         </select>
                         <span asp-validation-for="BirthCity" class="text-danger"></span>
@@ -78,7 +76,7 @@
                     </div>
                     <div class="col-md-3">
                         <label asp-for="EntryCity" class="form-label"></label>
-                        <select asp-for="EntryCity" class="form-select select2" asp-items="ViewBag.Cities">
+                        <select asp-for="EntryCity" class="form-select select2">
                             <option value="">انتخاب کنید</option>
                         </select>
                         <span asp-validation-for="EntryCity" class="text-danger"></span>
@@ -99,8 +97,7 @@
 
     <!-- Panel 2: آدرس -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel2" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel2" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             اطلاعات آدرس و تماس
         </div>
@@ -109,14 +106,14 @@
                 <div class="row g-3">
                     <div class="col-md-3">
                         <label asp-for="HomeProvince" class="form-label"></label>
-                        <select asp-for="HomeProvince" class="form-select select2" asp-items="ViewBag.Province">
+                        <select asp-for="HomeProvince" class="form-select select2" asp-items="ViewBag.Provinces">
                             <option value="">انتخاب کنید</option>
                         </select>
                         <span asp-validation-for="HomeProvince" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="HomeCity" class="form-label"></label>
-                        <select asp-for="HomeCity" class="form-select select2" asp-items="ViewBag.Province">
+                        <select asp-for="HomeCity" class="form-select select2">
                             <option value="">انتخاب کنید</option>
                         </select>
                         <span asp-validation-for="HomeCity" class="text-danger"></span>
@@ -148,11 +145,9 @@
 
     <!-- Panel 3: نظام وظیفه -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel3" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel3" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             اطلاعات نظام وظیفه
-
         </div>
         <div id="panel3" class="collapse show">
             <div class="card-body">
@@ -184,8 +179,7 @@
 
     <!-- Panel 4: بیمه -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel4" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel4" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             اطلاعات بیمه
         </div>
@@ -219,8 +213,7 @@
 
     <!-- Panel 5: تحصیلی -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel5" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel5" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             اطلاعات تحصیلی
         </div>
@@ -243,7 +236,7 @@
                     </div>
                     <div class="col-md-4">
                         <label asp-for="EduOrientationId" class="form-label"></label>
-                        <select asp-for="EduOrientationId" class="form-select select2" asp-items="ViewBag.EduOrientations">
+                        <select asp-for="EduOrientationId" class="form-select select2">
                             <option value="">انتخاب کنید</option>
                         </select>
                         <span asp-validation-for="EduOrientationId" class="text-danger"></span>
@@ -253,10 +246,9 @@
         </div>
     </div>
 
-    <!-- Panel 6: شغل -->
+    <!-- Panel 6: شغلی -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel6" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel6" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             اطلاعات شغلی
         </div>
@@ -293,7 +285,7 @@
                     </div>
                     <div class="col-md-3">
                         <label asp-for="SecondOrganizationId" class="form-label"></label>
-                        <select asp-for="SecondOrganizationId" class="form-select select2" asp-items="ViewBag.Organizations">
+                        <select asp-for="SecondOrganizationId" class="form-select select2">
                             <option value="">انتخاب کنید</option>
                         </select>
                         <span asp-validation-for="SecondOrganizationId" class="text-danger"></span>
@@ -324,8 +316,7 @@
 
     <!-- Panel 7: بانکی -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel7" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel7" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             اطلاعات بانکی
         </div>
@@ -373,11 +364,9 @@
 
     <!-- Panel 8: اسکان -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel8" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel8" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             اطلاعات اسکان
-
         </div>
         <div id="panel8" class="collapse show">
             <div class="card-body">
@@ -391,12 +380,12 @@
                     </div>
                     <div class="col-md-3">
                         <label asp-for="RoomNo" class="form-label"></label>
-                        <input asp-for="RoomNo" class="form-control" type="text" />
+                        <input asp-for="RoomNo" class="form-control" />
                         <span asp-validation-for="RoomNo" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="RoomPhone" class="form-label"></label>
-                        <input asp-for="RoomPhone" class="form-control" type="text" />
+                        <input asp-for="RoomPhone" class="form-control" />
                         <span asp-validation-for="RoomPhone" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
@@ -411,11 +400,9 @@
 
     <!-- Panel 9: فوق‌العاده‌ها -->
     <div class="card shadow-sm mb-3">
-        <div class="card-header"
-             data-bs-toggle="collapse" data-bs-target="#panel9" style="cursor: pointer;">
+        <div class="card-header" data-bs-toggle="collapse" data-bs-target="#panel9" style="cursor: pointer;">
             <i class="bi bi-chevron-down toggle-icon"></i>
             فوق‌العاده‌ها
-
         </div>
         <div id="panel9" class="collapse show">
             <div class="card-body">
@@ -427,19 +414,11 @@
                             <option value="false">خیر</option>
                             <option value="true">بله</option>
                         </select>
-                        @*  <input type="checkbox"
-                        id="Pollution"
-                        name="Pollution"
-                        class="form-check-input"
-                        value="true"
-                        @(Model?.Pollution == true ? "checked" : "") />
-                        <label for="Pollution" class="form-check-label">آلودگی</label>
-                        <input type="hidden" name="Pollution" value="false" /> *@
                         <span asp-validation-for="Pollution" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="PollutionPercent" class="form-label"></label>
-                        <input asp-for="PollutionPercent" class="form-control" type="text" />
+                        <input asp-for="PollutionPercent" class="form-control" />
                         <span asp-validation-for="PollutionPercent" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
@@ -458,7 +437,7 @@
                     </div>
                     <div class="col-md-3">
                         <label asp-for="HeightMeter" class="form-label"></label>
-                        <input asp-for="HeightMeter" class="form-control" type="text" />
+                        <input asp-for="HeightMeter" class="form-control" />
                         <span asp-validation-for="HeightMeter" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
@@ -508,20 +487,20 @@
                     </div>
                     <div class="col-md-3">
                         <label asp-for="AnnualLeaveAmont" class="form-label"></label>
-                        <input asp-for="AnnualLeaveAmont" class="form-control" type="text" />
+                        <input asp-for="AnnualLeaveAmont" class="form-control" />
                         <span asp-validation-for="AnnualLeaveAmont" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="RemainingAnnualLeave" class="form-label"></label>
-                        <input asp-for="RemainingAnnualLeave" class="form-control" type="text" />
+                        <input asp-for="RemainingAnnualLeave" class="form-control" />
                         <span asp-validation-for="RemainingAnnualLeave" class="text-danger"></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- دکمه‌های عملیات -->
-    <!-- فوتر چسبان با دکمه‌های ذخیره و انصراف - نسخه Responsive -->
+
+    <!-- فوتر چسبان -->
     <div class="sticky-bottom bg-white border-top shadow-sm p-2 p-md-3 mt-4">
         <div class="d-flex flex-column flex-sm-row justify-content-start gap-2">
             <button type="submit" class="btn btn-success w-100 w-sm-auto">
@@ -531,32 +510,22 @@
         </div>
     </div>
 
-@* 
-    <button type="submit" class="btn btn-success">
-        <i class="bi bi-check-circle me-2"></i>ذخیره اطلاعات
-    </button>
-    <a asp-action="Index" class="btn btn-secondary">انصراف</a> *@
-
-
 </form>
-
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
-    <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- Persian Date Picker -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            // فعال‌سازی Select2
+
+            // ── Select2 ────────────────────────
             $('.select2').select2({
                 theme: 'bootstrap-5',
                 dir: 'rtl',
@@ -565,98 +534,94 @@
                 allowClear: true
             });
 
-            // فعال‌سازی تقویم شمسی
+            // ── Persian Datepicker ────────────────────────────
             $('.datepicker').persianDatepicker({
                 format: 'YYYY/MM/DD',
                 initialValue: false,
                 autoClose: true,
-                calendar: {
-                    persian: {
-                        locale: 'fa'
-                    }
-                },
-                navigator: {
-                    enabled: true
-                },
-                toolbox: {
-                    enabled: true
-                },
-                timePicker: {
-                    enabled: false
-                }
+                calendar: { persian: { locale: 'fa' } },
+                navigator: { enabled: true },
+                toolbox: { enabled: true },
+                timePicker: { enabled: false }
             });
 
-            // چرخش آیکون collapse
-            $('.card-header[data-bs-toggle="collapse"]').on('click', function () {
-                const icon = $(this).find('.toggle-icon');
-                icon.toggleClass('rotate-180');
+            // ── توابع Cascade ────────────────────────────────
+
+            // شهرها => خروجی: { id, text }
+            function loadCities(provinceId, targetId, selectedId) {
+                var $target = $('#' + targetId);
+                $target.empty().append('<option value="">انتخاب کنید</option>');
+                if (!provinceId) { $target.trigger('change'); return; }
+
+                $.getJSON('@Url.Action("GetCities", "Employees")', { provinceId: provinceId }, function (data) {
+                    $.each(data, function (_, item) {
+                        $target.append(new Option(item.text, item.id));
+                    });
+                    if (selectedId) $target.val(selectedId);
+                    $target.trigger('change');
+                });
+            }
+
+            // سازمان دوم => خروجی: { id, title }
+            function loadSecondOrgs(organizationId, selectedId) {
+                var $target = $('#SecondOrganizationId');
+                $target.empty().append('<option value="">انتخاب کنید</option>');
+                if (!organizationId) { $target.trigger('change'); return; }
+
+                $.getJSON('@Url.Action("GetSecondOrganizations", "Employees")', { organizationId: organizationId }, function (data) {
+                    $.each(data, function (_, item) {
+                        $target.append(new Option(item.title, item.id));
+                    });
+                    if (selectedId) $target.val(selectedId);
+                    $target.trigger('change');
+                });
+            }
+
+            // گرایش تحصیلی => خروجی: { id, title }
+            function loadEduOrientations(studyFieldId, selectedId) {
+                var $target = $('#EduOrientationId');
+                $target.empty().append('<option value="">انتخاب کنید</option>');
+                if (!studyFieldId) { $target.trigger('change'); return; }
+
+                $.getJSON('@Url.Action("GetEduOrientations", "Employees")', { studyFieldId: studyFieldId }, function (data) {
+                    $.each(data, function (_, item) {
+                        $target.append(new Option(item.title, item.id));
+                    });
+                    if (selectedId) $target.val(selectedId);
+                    $target.trigger('change');
+                });
+            }
+
+            // ── رویدادهای Change ────────────────────────────────
+            $('#BirthProvince').on('change', function () {
+                loadCities($(this).val(), 'BirthCity', null);
             });
 
-            // جلوگیری از submit با Enter
-            $('form').on('keypress', function (e) {
-                if (e.which === 13 && e.target.tagName !== 'TEXTAREA') {
-                    e.preventDefault();
-                    return false;
-                }
+            $('#EntryProvince').on('change', function () {
+                loadCities($(this).val(), 'EntryCity', null);
             });
+
+            $('#HomeProvince').on('change', function () {
+                loadCities($(this).val(), 'HomeCity', null);
+            });
+
+            $('#OrganizationId').on('change', function () {
+                loadSecondOrgs($(this).val(), null);
+            });
+
+            $('#StudyFieldId').on('change', function () {
+                loadEduOrientations($(this).val(), null);
+            });
+
+
+            // مقادیر اولیه نداریم — Create
+            loadSecondOrgs($('#OrganizationId').val(), null);
+            loadCities($('#BirthProvince').val(), $('#BirthCity'), null);
+            loadCities($('#EntryProvince').val(), $('#EntryCity'), null);
+            loadCities($('#HomeProvince').val(), $('#HomeCity'), null);
+            loadEduOrientations($('#StudyFieldId').val(), null);
+
+
         });
     </script>
-    <style>
-        .sticky-bottom {
-            position: sticky;
-            bottom: 0;
-            z-index: 1020;
-        }
-
-        @@media (max-width: 576px) {
-            .sticky-bottom {
-                left: 0;
-                right: 0;
-                margin: 0 -12px;
-            }
-        }
-    </style>
-    <style>
-     
-        .toggle-icon {
-            transition: transform 0.3s ease;
-        }
-
-            .toggle-icon.rotate-180 {
-                transform: rotate(180deg);
-            }
-
-        .card-header {
-            user-select: none;
-        }
-
-        /*  .card-header:hover {
-                                        background-color: rgba(0, 0, 0, 0.05) !important;
-                                    } */
-
-        /* استایل Select2 برای RTL */
-        .select2-container--bootstrap-5 .select2-selection {
-            text-align: right;
-        }
-
-        .select2-container--bootstrap-5 .select2-dropdown {
-            text-align: right;
-        }
-
-        .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
-            padding-right: 15px;
-            padding-left: 20px;
-        }
-        /*  .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear,
-                .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear
-                {
-                    left:1.25rem !important;
-                }
-                */
-
-        /* استایل تقویم شمسی */
-        .pwt-btn-today {
-            direction: rtl;
-        }
-    </style>
 }

@@ -1,6 +1,7 @@
 ﻿using Employee.DataAccess.Data;
 using Employee.DataAccess.Repositories.Interfaces;
 using Employee.Entities.Models.Basic;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Employee.DataAccess.Repositories.Implementations
         :Repository<SecondOrganization>(context),ISecondOrganizationRepository
     {
         private readonly ApplicationDbContext _context=context;
-
+     
         public bool SecondOrganizationExists(int id)
         {
             return _context.SecondOrganizations.Any(s=>s.OrganizationId==id);

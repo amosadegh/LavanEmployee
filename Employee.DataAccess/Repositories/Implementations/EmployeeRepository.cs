@@ -2,6 +2,7 @@
 using Employee.DataAccess.Repositories.Implementations;
 using Employee.DataAccess.Repositories.Interfaces;
 using Employee.Entities.Models.Personel;
+using Employee.Entities.Models.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,76 +11,103 @@ namespace Employee.DataAccess.Repository
     public class EmployeeRepository : Repository<TblEmployee>, IEmployeeRepository
     {
         private readonly ApplicationDbContext _db;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public EmployeeRepository(ApplicationDbContext db, UserManager<IdentityUser> userManager)
+        private const string DefaultRole = "User";
+
+        public EmployeeRepository(
+            ApplicationDbContext db,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
             : base(db)
         {
             _db = db;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<TblEmployee> AddEmployeeWithUserAsync(TblEmployee employee, string password)
         {
-            // 1. ذخیره کارمند
-            _db.Employees.Add(employee);
-            await _db.SaveChangesAsync();
-
-            // 2. ساخت User با UserName = EmployeeNumber
-            var user = new IdentityUser
+            await using var transaction = await _db.Database.BeginTransactionAsync();
+            try
             {
-                UserName = employee.EmployeeNumber,
-                Email = employee.Mobile + "@company.local" // اگر Email اجباری است
-            };
+                // 1. چک وجود کاربر با همین EmployeeNumber
+                var existingUser = await _userManager.FindByNameAsync(employee.EmployeeNumber);
+                if (existingUser != null)
+                {
+                    // کاربر قبلاً وجود داره — فقط UserId رو ست کن
+                    employee.UserId = existingUser.Id;
+                }
+                else
+                {
+                    // 2. ساخت کاربر جدید
+                    var user = new ApplicationUser
+                    {
+                        UserName = employee.EmployeeNumber,
+                        Email = $"{employee.EmployeeNumber}@local.com",
+                        EmailConfirmed = true,
+                        SecurityStamp = Guid.NewGuid().ToString()
+                    };
 
-            var result = await _userManager.CreateAsync(user, password);
+                    var createResult = await _userManager.CreateAsync(user, password);
+                    if (!createResult.Succeeded)
+                    {
+                        var errors = string.Join(", ", createResult.Errors.Select(e => e.Description));
+                        throw new Exception($"خطا در ساخت کاربر: {errors}");
+                    }
 
-            if (!result.Succeeded)
-            {
-                // اگر User نساخته شد، Employee را پاک کن
-                _db.Employees.Remove(employee);
+                    // 3. اطمینان از وجود نقش و اختصاص به کاربر
+                    if (!await _roleManager.RoleExistsAsync(DefaultRole))
+                        await _roleManager.CreateAsync(new IdentityRole(DefaultRole));
+
+                    var roleResult = await _userManager.AddToRoleAsync(user, DefaultRole);
+                    if (!roleResult.Succeeded)
+                    {
+                        var errors = string.Join(", ", roleResult.Errors.Select(e => e.Description));
+                        throw new Exception($"خطا در تخصیص نقش: {errors}");
+                    }
+
+                    employee.UserId = user.Id;
+                }
+
+                // 4. ذخیره کارمند (بعد از داشتن UserId)
+                _db.Employees.Add(employee);
                 await _db.SaveChangesAsync();
 
-                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new Exception($"خطا در ساخت کاربر: {errors}");
+                await transaction.CommitAsync();
+                return employee;
             }
-
-            // 3. اضافه کردن به نقش User
-            var roleResult = await _userManager.AddToRoleAsync(user, "User");
-
-            if (!roleResult.Succeeded)
+            catch
             {
-                // حذف User و Employee
-                await _userManager.DeleteAsync(user);
-                _db.Employees.Remove(employee);
-                await _db.SaveChangesAsync();
-
-                var errors = string.Join(", ", roleResult.Errors.Select(e => e.Description));
-                throw new Exception($"خطا در تخصیص نقش: {errors}");
+                await transaction.RollbackAsync();
+                throw;
             }
-
-            return employee;
         }
-public async Task<TblEmployee?> GetByIdAsync(int id)
+
+        public async Task<TblEmployee?> GetByIdAsync(int id)
         {
             return await _db.Employees
                 .Include(e => e.Administration)
                 .Include(e => e.Job)
+                .Include(e => e.JobType)
+                .Include(e => e.JobLocation)
                 .Include(e => e.Organization)
+                .Include(e => e.SecondOrganization)
                 .Include(e => e.ContractType)
+                .Include(e => e.EduOrientation)
+                .Include(e => e.StudyLevel)
+                .Include(e => e.StudyField)
                 .Include(e => e.PayBankNavigation)
                 .Include(e => e.PayBackupBankNavigation)
+                .Include(e => e.Camp)
                 .Include(e => e.HomeCityNavigation)
                 .Include(e => e.BirthCityNavigation)
                 .Include(e => e.EntryCityNavigation)
-                .Include(e => e.BirthProvince)
-                .Include(e => e.HomeProvince)
-                .Include(e => e.EntryProvince)
-                .Include(e => e.StudyLevel)
-                .Include(e => e.StudyField)
+                .Include(e => e.BirthProvinceNavigation)
+                .Include(e => e.HomeProvinceNavigation)
+                .Include(e => e.EntryProvinceNavigation)
                 .FirstOrDefaultAsync(e => e.EmpId == id);
         }
-
     }
-
 }

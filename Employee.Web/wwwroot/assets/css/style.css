@@ -27,37 +27,38 @@ body {
 #main-wrapper {
     display: flex;
 }
-#sidebar{
-    position:fixed;
-    top:0;
-    bottom:0;
-    right:0;/*در حالت RTL سایبار سمت راست است*/
-    height:100vh;/*ارتفاع برابر کل صفحه نمایش*/
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0; /*در حالت RTL سایبار سمت راست است*/
+    height: 100vh; /*ارتفاع برابر کل صفحه نمایش*/
     /*فعال سازی اسکرئل عمودی در صورت نیاز و غیرفعال کردن اسکرول افقی*/
-    overflow-y:auto;
-    overflow-x:hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     /*اسکرول روان در دستگاه های لمسی و مدرن*/
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:thin;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
 }
-/*پهنای اسکروبار بسیار تازک*/
-#sidebar::-webkit-scrollbar{
-    width:5px;
-}
-/*مسیر حرکت اسکرول بار (پس زمینه خالی)*/
-#sidebar::-webkit-scrollbar-track{
-    background:transparent;
-}
-/*شستی اسکرول بار نیمه شفاف متناسب با تم شیشه ای*/
-#sidebar::-webkit-scrollbar-thumb{
-    background:rgba(255,255,255.0.15);
-    border-radius:10px;
-    transition:background 0.3s ease;
-}
-/*تغییر رنگ شستی اسکرول بار در حالت هاور*/
-#sidebar::-webkit-scrollbar-thumb:hover{
-    background:rgba(255,255,255,0.3);
-}
+    /*پهنای اسکروبار بسیار تازک*/
+    #sidebar::-webkit-scrollbar {
+        width: 5px;
+    }
+    /*مسیر حرکت اسکرول بار (پس زمینه خالی)*/
+    #sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    /*شستی اسکرول بار نیمه شفاف متناسب با تم شیشه ای*/
+    #sidebar::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255.0.15);
+        border-radius: 10px;
+        transition: background 0.3s ease;
+    }
+        /*تغییر رنگ شستی اسکرول بار در حالت هاور*/
+        #sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.3);
+        }
 
 
 #main-content {
@@ -87,46 +88,47 @@ body {
     color: var(--text-color);
     text-decoration: none;
 }
-.sidebar-brand i {
-    color: var(--bs-primary);
-}
+
+    .sidebar-brand i {
+        color: var(--bs-primary);
+    }
 
 .sidebar-nav {
     padding: 0 1rem;
     list-style: none;
 }
 
-.sidebar-nav .nav-item .nav-link {
-    display: flex;
-    align-items: center;
-    padding: 0.9rem 1rem;
-    margin: 0.25rem 0;
-    color: var(--text-muted);
-    font-weight: 500;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    border-radius: 0.5rem;
-    border-right: 3px solid transparent;
-}
+    .sidebar-nav .nav-item .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.9rem 1rem;
+        margin: 0.25rem 0;
+        color: var(--text-muted);
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        border-right: 3px solid transparent;
+    }
 
-.sidebar-nav .nav-item .nav-link i {
-    font-size: 1.3rem;
-    margin-left: 1rem;
-    width: 24px;
-    transition: color 0.2s ease;
-}
+        .sidebar-nav .nav-item .nav-link i {
+            font-size: 1.3rem;
+            margin-left: 1rem;
+            width: 24px;
+            transition: color 0.2s ease;
+        }
 
-.sidebar-nav .nav-item .nav-link:hover {
-    background-color: rgba(var(--bs-primary-rgb), 0.07);
-    color: var(--bs-primary);
-}
+        .sidebar-nav .nav-item .nav-link:hover {
+            background-color: rgba(var(--bs-primary-rgb), 0.07);
+            color: var(--bs-primary);
+        }
 
-.sidebar-nav .nav-item .nav-link.active {
-    background-color: rgba(var(--bs-primary-rgb), 0.1);
-    color: var(--bs-primary);
-    font-weight: 700;
-    border-right-color: var(--bs-primary);
-}
+        .sidebar-nav .nav-item .nav-link.active {
+            background-color: rgba(var(--bs-primary-rgb), 0.1);
+            color: var(--bs-primary);
+            font-weight: 700;
+            border-right-color: var(--bs-primary);
+        }
 
 .sidebar-footer {
     border-top: 1px solid var(--border-color);
@@ -153,9 +155,10 @@ body {
     font-size: 1.5rem;
     color: var(--text-muted);
 }
-#sidebar-toggle:hover {
-    color: var(--bs-primary);
-}
+
+    #sidebar-toggle:hover {
+        color: var(--bs-primary);
+    }
 
 /* --- Card Styles --- */
 .card {
@@ -164,15 +167,18 @@ body {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease;
 }
-.card:hover {
-    transform: translateY(-5px);
-}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
 .card-header {
     background-color: transparent;
     border-bottom: 1px solid var(--border-color);
     padding: 1.25rem 1.5rem;
     font-weight: 700;
 }
+
 .card-body {
     padding: 1.5rem;
 }
@@ -187,9 +193,21 @@ body {
     justify-content: center;
     font-size: 1.75rem;
 }
-.bg-primary-soft { background-color: rgba(var(--bs-primary-rgb), 0.1); color: var(--bs-primary); }
-.bg-success-soft { background-color: rgba(var(--bs-success-rgb), 0.1); color: var(--bs-success); }
-.bg-warning-soft { background-color: rgba(var(--bs-warning-rgb), 0.1); color: var(--bs-warning); }
+
+.bg-primary-soft {
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    color: var(--bs-primary);
+}
+
+.bg-success-soft {
+    background-color: rgba(var(--bs-success-rgb), 0.1);
+    color: var(--bs-success);
+}
+
+.bg-warning-soft {
+    background-color: rgba(var(--bs-warning-rgb), 0.1);
+    color: var(--bs-warning);
+}
 
 
 /* --- Auth Pages (Login, Register) --- */
@@ -200,6 +218,7 @@ body {
     justify-content: center;
     background: #e0e5ec;
 }
+
 .auth-card {
     width: 100%;
     max-width: 450px;
@@ -214,6 +233,7 @@ body {
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--border-color);
 }
+
 .page-item .page-link {
     border-radius: 0.5rem !important;
     margin: 0 2px;
@@ -268,6 +288,7 @@ body {
     #main-wrapper.sidebar-collapsed #sidebar {
         transform: translateX(280px); /* انتقال سایدبار به خارج از صفحه از سمت راست */
     }
+
     #main-wrapper.sidebar-collapsed #main-content {
         margin-right: 0;
         width: 100%;
@@ -279,16 +300,18 @@ body {
     #sidebar {
         transform: translateX(280px); /* در حالت عادی روی موبایل مخفی باشد */
     }
+
     #main-content {
         margin-right: 0; /* محتوا تمام صفحه را بگیرد */
         width: 100%;
         padding: 1rem;
     }
-    
+
     /* وقتی دکمه همبرگری روی موبایل کلیک می‌شود */
     #main-wrapper.sidebar-show #sidebar {
         transform: translateX(0); /* نمایش سایدبار روی صفحه */
     }
+
     #main-wrapper.sidebar-show .sidebar-overlay {
         display: block; /* نمایش لایه تاریک */
     }
@@ -319,26 +342,26 @@ body {
     left: 0; /* موقعیت‌یابی صحیح در جهت راست‌چین */
 }
 
-/* هاور بر روی آیتم‌های اعلان */
-.notification-dropdown-menu .dropdown-item {
-    transition: background-color 0.2s ease;
-    white-space: normal; /* اجازه شکستن متن‌های طولانی */
-}
+    /* هاور بر روی آیتم‌های اعلان */
+    .notification-dropdown-menu .dropdown-item {
+        transition: background-color 0.2s ease;
+        white-space: normal; /* اجازه شکستن متن‌های طولانی */
+    }
 
-.notification-dropdown-menu .dropdown-item:hover {
-    background-color: #f8f9fa;
-}
+        .notification-dropdown-menu .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
 
-/* دایره پس‌زمینه آیکون‌ها */
-.notification-dropdown-menu .icon-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+    /* دایره پس‌زمینه آیکون‌ها */
+    .notification-dropdown-menu .icon-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
 
 /* پالت رنگ‌های نرم و ملایم (Soft colors) */
 .bg-primary-soft {
@@ -387,25 +410,25 @@ body {
     margin-bottom: 1.25rem !important;
 }
 
-.dataTables_filter label {
-    font-weight: 500;
-    color: var(--text-muted);
-}
+    .dataTables_filter label {
+        font-weight: 500;
+        color: var(--text-muted);
+    }
 
-.dataTables_filter input {
-    border: 1px solid var(--border-color) !important;
-    border-radius: 0.5rem !important;
-    padding: 0.4rem 0.8rem !important;
-    margin-right: 0.5rem !important;
-    outline: none !important;
-    background-color: rgb(255, 255, 255) !important;
-    transition: all 0.2s ease-in-out !important;
-}
+    .dataTables_filter input {
+        border: 1px solid var(--border-color) !important;
+        border-radius: 0.5rem !important;
+        padding: 0.4rem 0.8rem !important;
+        margin-right: 0.5rem !important;
+        outline: none !important;
+        background-color: rgb(255, 255, 255) !important;
+        transition: all 0.2s ease-in-out !important;
+    }
 
-.dataTables_filter input:focus {
-    border-color: var(--bs-primary) !important;
-    box-shadow: 0 0 0 0.2rem rgba(88, 101, 242, 0.15) !important;
-}
+        .dataTables_filter input:focus {
+            border-color: var(--bs-primary) !important;
+            box-shadow: 0 0 0 0.2rem rgba(88, 101, 242, 0.15) !important;
+        }
 
 /* هماهنگ‌سازی بخش انتخاب تعداد ردیف (Show entries) */
 .dataTables_length {
@@ -413,20 +436,20 @@ body {
     margin-bottom: 1.25rem !important;
 }
 
-.dataTables_length label {
-    font-weight: 500;
-    color: var(--text-muted);
-}
+    .dataTables_length label {
+        font-weight: 500;
+        color: var(--text-muted);
+    }
 
-.dataTables_length select {
-    border: 1px solid var(--border-color) !important;
-    border-radius: 0.5rem !important;
-    padding: 0.4rem 1.5rem 0.4rem 0.5rem !important;
-    margin: 0 0.5rem !important;
-    outline: none !important;
-    background-color: rgb(255, 255, 255) !important;
-    cursor: pointer;
-}
+    .dataTables_length select {
+        border: 1px solid var(--border-color) !important;
+        border-radius: 0.5rem !important;
+        padding: 0.4rem 1.5rem 0.4rem 0.5rem !important;
+        margin: 0 0.5rem !important;
+        outline: none !important;
+        background-color: rgb(255, 255, 255) !important;
+        cursor: pointer;
+    }
 
 /* ==========================================================================
    استایل جدید، مینیمال و بدون مرز دکمه‌های صفحه‌بندی (Borderless Pagination)
@@ -458,38 +481,38 @@ body {
     margin: 0 !important;
 }
 
-/* حالت هاور (عبور موس) روی دکمه‌ها */
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background: rgba(88, 101, 242, 0.08) !important; /* بک‌گراند بسیار ملایم تم اصلی */
-    color: var(--bs-primary) !important;
-}
+    /* حالت هاور (عبور موس) روی دکمه‌ها */
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background: rgba(88, 101, 242, 0.08) !important; /* بک‌گراند بسیار ملایم تم اصلی */
+        color: var(--bs-primary) !important;
+    }
 
-/* دکمه صفحه فعال (Active) */
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: var(--bs-primary) !important;
-    color: #ffffff !important;
-    font-weight: 600 !important;
-    box-shadow: 0 4px 10px rgba(88, 101, 242, 0.25) !important; /* ایجاد سایه ملایم و ظریف */
-}
+    /* دکمه صفحه فعال (Active) */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background: var(--bs-primary) !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 10px rgba(88, 101, 242, 0.25) !important; /* ایجاد سایه ملایم و ظریف */
+    }
 
-/* دکمه‌های خاص "قبلی" و "بعدی" */
-.dataTables_wrapper .dataTables_paginate .paginate_button.previous,
-.dataTables_wrapper .dataTables_paginate .paginate_button.next {
-    width: auto !important; /* طول خودکار برای جا شدن متن قبلی/بعدی */
-    padding: 0 10px !important;
-    border-radius: 8px !important; /* گوشه گرد کپسولی */
-}
+    /* دکمه‌های خاص "قبلی" و "بعدی" */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+        width: auto !important; /* طول خودکار برای جا شدن متن قبلی/بعدی */
+        padding: 0 10px !important;
+        border-radius: 8px !important; /* گوشه گرد کپسولی */
+    }
 
-/* حالت غیرفعال دکمه‌های قبلی و بعدی */
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
-    background: transparent !important;
-    color: #c1c7d0 !important; /* خاکستری بسیار روشن */
-    cursor: not-allowed !important;
-    opacity: 0.5 !important;
-}
+    /* حالت غیرفعال دکمه‌های قبلی و بعدی */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+        background: transparent !important;
+        color: #c1c7d0 !important; /* خاکستری بسیار روشن */
+        cursor: not-allowed !important;
+        opacity: 0.5 !important;
+    }
 
 
 
@@ -508,3 +531,57 @@ body {
     display: table !important;
 }
 
+/*استایل های مربوط به Create Edit Employee*/
+.sticky-bottom {
+    position: sticky;
+    bottom: 0;
+    z-index: 1020;
+}
+
+@media (max-width: 576px) {
+    .sticky-bottom {
+        left: 0;
+        right: 0;
+        margin: 0 -12px;
+    }
+}
+   .toggle-icon {
+       transition: transform 0.3s ease;
+   }
+   
+       .toggle-icon.rotate-180 {
+           transform: rotate(180deg);
+       }
+   
+   .card-header {
+       user-select: none;
+   }
+   
+   /*  .card-header:hover {
+                                       background-color: rgba(0, 0, 0, 0.05) !important;
+                                   } */
+   
+   /* استایل Select2 برای RTL */
+   .select2-container--bootstrap-5 .select2-selection {
+       text-align: right;
+   }
+   
+   .select2-container--bootstrap-5 .select2-dropdown {
+       text-align: right;
+   }
+   
+   .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
+       padding-right: 15px;
+       padding-left: 20px;
+   }
+   /*  .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear,
+               .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear
+               {
+                   left:1.25rem !important;
+               }
+               */
+   
+   /* استایل تقویم شمسی */
+   .pwt-btn-today {
+       direction: rtl;
+   }
