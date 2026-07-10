@@ -247,14 +247,14 @@ namespace Employee.Areas.Admin.Controllers
             ViewBag.Provinces = new SelectList(
                await _provinceRepo.GetAsync(), "Id", "Name");
 
-            ViewBag.Cities = new SelectList(
-                await _cityRepo.GetAsync(), "Id", "Name");
+            //ViewBag.Cities = new SelectList(
+            //    await _cityRepo.GetAsync(), "Id", "Name");
 
             ViewBag.ContractTypes = new SelectList(
                 await _contractRepo.GetAsync(), "ContractTypeId", "ContractTypeTitle", employee?.ContractTypeId);
 
-            ViewBag.EduOrientations = new SelectList(
-                await _eduOrientationRepo.GetAsync(), "EduOrientationId", "EduOrientationTitle", employee?.EduOrientationId);
+            //ViewBag.EduOrientations = new SelectList(
+            //    await _eduOrientationRepo.GetAsync(), "EduOrientationId", "EduOrientationTitle", employee?.EduOrientationId);
 
             ViewBag.Jobs = new SelectList(
                 await _jobRepo.GetAsync(), "JobId", "JobTitle", employee?.JobId);
