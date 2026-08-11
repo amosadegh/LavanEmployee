@@ -89,6 +89,7 @@ namespace Employee.Areas.Admin.Controllers
                     .Include(e => e.Job)
                     .Include(e => e.JobType)
                     .Include(e => e.Organization)
+                    .Include(e => e.SecondOrganization)
             );
 
             return View(employees ?? Enumerable.Empty<TblEmployee>());

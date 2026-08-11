@@ -224,7 +224,7 @@ namespace Employee.Entities.Models.Personel
         public virtual Organization? Organization { get; set; }
 
         [ForeignKey(nameof(SecondOrganizationId))]
-        public virtual Organization? SecondOrganization { get; set; }
+        public virtual SecondOrganization? SecondOrganization { get; set; }
 
         [ForeignKey(nameof(StudyLevelId))]
         public virtual StudyLevel? StudyLevel { get; set; }

@@ -6,12 +6,19 @@ using Employee.DataAccess.Repositories.Interfaces;
 using Employee.DataAccess.Repositories.Implementations;
 using Employee.DataAccess.Repository;
 using Employee.Entities.Models.User;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+var keysFolder = Path.Combine(builder.Environment.ContentRootPath, "DataProtection-Keys");
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(keysFolder))
+    .SetApplicationName("Employee.Web");
+
 
 // Identity - باید قبل از ConfigureApplicationCookie باشد
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -76,23 +83,24 @@ builder.Services.AddScoped<ISecondOrganizationRepository, SecondOrganizationRepo
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 #endregion
 
+
 var app = builder.Build();
 
 // Seed
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-    await IdentitySeeder.SeedRoles(roleManager);
-    await IdentitySeeder.SeedSuperAdmin(userManager);
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+//    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+//    await IdentitySeeder.SeedRoles(roleManager);
+//    await IdentitySeeder.SeedSuperAdmin(userManager);
+//}
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 

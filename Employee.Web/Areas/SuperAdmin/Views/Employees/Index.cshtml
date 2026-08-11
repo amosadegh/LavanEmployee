@@ -42,7 +42,7 @@
                                 <td>@item.Family</td>
                                 <td>@item.Father</td>
                                 <td>@(item.Organization?.OrganizationTitle ?? "-")</td>
-                                <td>@(item.SecondOrganization?.OrganizationTitle ?? "-")</td>
+                                <td>@(item.SecondOrganization?.SecondOrganizationTitle ?? "-")</td>
 
                                 <td>
                                     <a href=@Url.Action("Edit", new {id = item.EmpId}) class="btn btn-sm btn-info text-white"><i class="bi bi-pencil-square"></i></a>
