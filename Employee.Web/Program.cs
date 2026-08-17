@@ -1,12 +1,11 @@
 ﻿using Employee.DataAccess.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Employee.Web.Data;
-using Employee.DataAccess.Repositories.Interfaces;
 using Employee.DataAccess.Repositories.Implementations;
+using Employee.DataAccess.Repositories.Interfaces;
 using Employee.DataAccess.Repository;
 using Employee.Entities.Models.User;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -46,6 +46,8 @@ namespace Employee.DataAccess.Repository
                     {
                         UserName = employee.EmployeeNumber,
                         Email = $"{employee.EmployeeNumber}@local.com",
+                        FullName = employee.Name + " " + employee.Family,
+                        IsActive=true,
                         EmailConfirmed = true,
                         SecurityStamp = Guid.NewGuid().ToString()
                     };
