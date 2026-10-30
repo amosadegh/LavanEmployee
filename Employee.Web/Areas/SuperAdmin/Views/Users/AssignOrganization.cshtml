@@ -1,0 +1,205 @@
+﻿@* Areas/SuperAdmin/Views/Users/AssignOrganization.cshtml *@
+@model IEnumerable<Employee.Entities.Models.SecondOrganizationUser>
+
+@{
+    ViewBag.Title = "انتساب واحد سازمانی";
+    Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    <partial name="_PluginsStylesPartial" />
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h4 text-gray-800">
+        @ViewBag.Title — <span class="text-primary fw-bold">@ViewBag.UserFullName</span>
+    </h1>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-right-circle me-1"></i>بازگشت به لیست
+    </a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- فرم انتساب جدید -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header py-3 bg-light">
+        <h6 class="m-0 font-weight-bold text-primary">افزودن انتساب جدید</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="AssignOrganization" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="userId" value="@ViewBag.UserId" />
+
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">سازمان</label>
+                    <select id="OrganizationId" class="form-select select2" asp-items="ViewBag.Organizations">
+                        <option value="">-- انتخاب کنید --</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">واحد سازمانی</label>
+                    <select id="SecondOrganizationId" name="secondOrganizationId" class="form-select select2" required>
+                        <option value="">-- ابتدا سازمان را انتخاب کنید --</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">نقش</label>
+                    <select name="role" class="form-select" required>
+                        <option value="">-- انتخاب کنید --</option>
+                        <option value="Manager">مدیر واحد</option>
+                        <option value="Representative">نماینده</option>
+                    </select>
+                </div>
+
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-success w-100" title="ثبت انتساب">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- جدول انتساب‌های فعلی -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive px-3">
+            <table id="tblList" class="table display table-striped table-bordered table-hover table-condensed table-responsive text-center align-middle">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>واحد سازمانی </th>
+                        <th>نقش</th>
+                        <th style="width: 100px;">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(row++)</td>
+                            <td>@item.SecondOrganization?.SecondOrganizationTitle</td>
+                            <td>
+                                @if (item.Role == "Manager")
+                                {
+                                    <span class="badge bg-primary">مدیر واحد</span>
+                                }
+                                else if (item.Role == "Representative")
+                                {
+                                    <span class="badge bg-info text-dark">نماینده</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@item.Role</span>
+                                }
+                            </td>
+                            <td>
+                                <form asp-action="RemoveAssignment" method="post" class="d-inline" onsubmit="return confirmDelete(this)">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="assignmentId" value="@item.Id" />
+                                    <input type="hidden" name="userId" value="@ViewBag.UserId" />
+                                    <button type="submit" class="btn btn-sm btn-danger" title="حذف انتساب">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_PluginsScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            // فعال‌سازی Select2 با تم Bootstrap 5
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                dir: 'rtl'
+            });
+
+            // مقداردهی امن DataTable با destroy برای جلوگیری از خطای Reinitialise
+            if ($.fn.DataTable.isDataTable('#tblList')) {
+                $('#tblList').DataTable().destroy();
+            }
+
+            $('#tblList').DataTable({
+                destroy: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/fa.json'
+                }
+            });
+        });
+
+        // لود داینامیک واحدهای سازمانی
+        $('#OrganizationId').on('change', function () {
+            const orgId = $(this).val();
+            const $sec = $('#SecondOrganizationId');
+
+            $sec.empty().append('<option value="">در حال بارگذاری...</option>');
+
+            if (!orgId) {
+                $sec.empty().append('<option value="">-- ابتدا سازمان را انتخاب کنید --</option>');
+                return;
+            }
+
+            $.getJSON('@Url.Action("GetSecondOrganizations", "Users", new { area = "SuperAdmin" })',
+                { organizationId: orgId },
+                function (data) {
+                    $sec.empty().append('<option value="">-- انتخاب کنید --</option>');
+                    $.each(data, function (i, item) {
+                        $sec.append($('<option>', { value: item.id, text: item.title }));
+                    });
+                    $sec.trigger('change.select2');
+                }
+            ).fail(function () {
+                $sec.empty().append('<option value="">خطا در بارگذاری اطلاعات</option>');
+            });
+        });
+
+        // تایید حذف با SweetAlert2
+        function confirmDelete(form) {
+            Swal.fire({
+                title: 'حذف انتساب',
+                text: 'آیا از حذف این انتساب واحد سازمانی اطمینان دارید؟',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'بله، حذف شود',
+                cancelButtonText: 'انصراف',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+            return false;
+        }
+    </script>
+}

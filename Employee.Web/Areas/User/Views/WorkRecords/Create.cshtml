@@ -1,0 +1,99 @@
+@model Employee.Models.TimeSheet.WorkRecordCreateVm
+@{
+    ViewData["Title"] = ViewBag.IsEdit == true ? "ویرایش کارکرد" : "ثبت کارکرد";
+    bool isEdit = ViewBag.IsEdit == true;
+}
+
+<div class="container py-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">@ViewData["Title"] - @ViewBag.MonthTitle</h4>
+        <a asp-action="Index" asp-route-year="@Model.Year" asp-route-month="@Model.Month" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="@(isEdit ? "Edit" : "Create")" asp-route-id="@(isEdit ? Model.WorkRecordId : null)" method="post">
+                <input type="hidden" asp-for="Year" />
+                <input type="hidden" asp-for="Month" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="FromDate" class="form-label"></label>
+                        <input asp-for="FromDate" class="form-control datepicker" autocomplete="off" placeholder="YYYY/MM/DD" />
+                        <span asp-validation-for="FromDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="ToDate" class="form-label"></label>
+                        <input asp-for="ToDate" class="form-control datepicker" autocomplete="off" placeholder="YYYY/MM/DD" />
+                        <span asp-validation-for="ToDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="WorkStatus" class="form-label"></label>
+                        <select asp-for="WorkStatus" asp-items="ViewBag.Statuses" class="form-select select2">
+                            <option value="">-- انتخاب کنید --</option>
+                        </select>
+                        <span asp-validation-for="WorkStatus" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="2" maxlength="500"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">ذخیره</button>
+                    <a asp-action="Index" asp-route-year="@Model.Year" asp-route-month="@Model.Month" class="btn btn-light">انصراف</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/fa.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+    <script>
+        (function () {
+            var minText = '@ViewBag.MinText';
+
+            // پیش‌فرض: خالی بودن ورودی‌ها را با اولین روز ماه پر کن
+            $('.datepicker').each(function () {
+                if (!$(this).val()) $(this).val(minText);
+                // پلاگین مقدار اولیه را از attribute می‌خواند نه property
+                $(this).attr('value', $(this).val());
+            });
+
+            // نمای تقویم همیشه روی ماه ثبت‌شده باز شود (سرور هم بازه را اعتبارسنجی می‌کند)
+            $('.datepicker').persianDatepicker({
+                format: 'YYYY/MM/DD',
+                persianDigit: false,
+                autoClose: true,
+                observer: false,
+                initialValue: false,
+                initialValueType: 'persian',
+                onShow: function (model) {
+                    // ماه نمایش: اگر ورودی مقدار معتبر دارد از آن، وگرنه از ماه ثبت (hidden ها)
+                    var parts = ($(this.input || this).val() || '').split('/');
+                    var y = parseInt(parts[0], 10), m = parseInt(parts[1], 10);
+                    if (!y || !m || m < 1 || m > 12) {
+                        y = parseInt($('#Year').val(), 10);
+                        m = parseInt($('#Month').val(), 10);
+                    }
+                    var st = model && (model.state || model);
+                    if (y && m && st && st.setViewDateTime) {
+                        st.setViewDateTime('year', y);
+                        st.setViewDateTime('month', m);
+                    }
+                }
+            });
+
+            $('.select2').select2({ dir: 'rtl', language: 'fa', width: '100%' });
+        })();
+    </script>
+}

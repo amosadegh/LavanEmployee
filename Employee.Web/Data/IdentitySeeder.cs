@@ -7,7 +7,7 @@ namespace Employee.Web.Data
     {
         public static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
         {
-            string[] roles = { "SuperAdmin", "UserAdmin", "User" };
+            string[] roles = { "SuperAdmin", "UserAdmin", "User", "Representative" };
 
             foreach (var role in roles)
             {

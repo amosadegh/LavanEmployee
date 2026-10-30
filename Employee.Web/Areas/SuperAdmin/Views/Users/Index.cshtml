@@ -1,81 +1,98 @@
 ﻿@model IEnumerable<Employee.Entities.ViewModels.User.UserViewModel>
+
 @{
-    ViewData["Title"] = "مدیریت کاربران";
+    ViewBag.Title = "مدیریت کاربران";
 }
 
-<div class="card shadow-sm">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">مدیریت کاربران</h5>
-        <a asp-action="Create" class="btn btn-primary btn-sm">
-            <i class="bi bi-plus-lg"></i> کاربر جدید
-        </a>
-    </div>
-    <div class="card-body p-0">
-        <table class="table table-hover table-striped mb-0 text-center">
-            <thead class="table-dark">
-                <tr>
-                    <th>#</th>
-                    <th>نام و نام خانوادگی</th>
-                    <th>نام کاربری</th>
-                    <th>نقش</th>
-                    <th>وضعیت</th>
-                    <th>عملیات</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int row = 1;
-                }
-                @foreach (var user in Model)
-                {
-                    <tr>
-                        <td>@(row++)</td>
-                        <td>@user.FullName</td>
-                        <td>@user.UserName</td>
-                        <td>@user.RoleName</td>
-                        <td>
-                            @if (user.IsActive)
-                            {
-                                <span class="badge bg-success">فعال</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-secondary">غیرفعال</span>
-                            }
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@user.Id"
-                               class="btn btn-sm btn-warning">ویرایش</a>
+@section styles {
+    <partial name="_PluginsStylesPartial" />
+}
 
-                            <form asp-action="Delete" asp-route-id="@user.Id"
-                                  method="post" class="d-inline"
-                                  onsubmit="return confirmDelete(this)">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm btn-danger">حذف</button>
-                            </form>
-                        </td>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h4 text-gray-800">@ViewBag.Title</h1>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-2"></i>افزودن کاربر جدید
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive px-3">
+            <table id="tblList" class="table display table-striped table-bordered table-hover table-condensed table-responsive text-center align-middle">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>نام و نام خانوادگی</th>
+                        <th>نام کاربری</th>
+                        <th>نقش</th>
+                        <th>وضعیت</th>
+                        <th style="width: 150px;">عملیات</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                    }
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@(row++)</td>
+                            <td>@user.FullName</td>
+                            <td>@user.UserName</td>
+                            <td>@user.RoleName</td>
+                            <td>
+                                @if (user.IsActive)
+                                {
+                                    <span class="badge bg-success">فعال</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">غیرفعال</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="AssignOrganization" asp-route-id="@user.Id" class="btn btn-sm btn-secondary" title="انتساب واحد سازمانی">
+                                    <i class="bi bi-diagram-3"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-info text-white" title="ویرایش">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@user.Id" method="post" class="d-inline" onsubmit="return confirmDelete(this)">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-danger" title="حذف">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-@section Scripts {
+@section scripts {
+    <partial name="_PluginsScriptsPartial" />
+
     <script>
         function confirmDelete(form) {
             Swal.fire({
                 title: 'حذف کاربر',
-                text: 'آیا مطمئن هستید؟',
+                text: 'آیا از حذف این کاربر مطمئن هستید؟',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'بله، حذف شود',
                 cancelButtonText: 'انصراف',
-                confirmButtonColor: '#d33'
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6'
             }).then(result => {
-                if (result.isConfirmed) form.submit();
+                if (result.isConfirmed) {
+                    form.submit();
+                }
             });
             return false;
         }
     </script>
 }
+

@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById('tblList') && typeof $ !== 'undefined') {
         $('#tblList').DataTable({
             responsive: true,
-            "lengthChange": false,
+            "lengthChange": true,
             "pageLength": 10,
             "language": {
                 "emptyTable": "هیچ داده‌ای در جدول وجود ندارد",

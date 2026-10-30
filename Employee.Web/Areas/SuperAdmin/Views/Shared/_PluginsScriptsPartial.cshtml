@@ -1,0 +1,31 @@
+﻿<script src="~/lib/select2/js/select2.min.js" asp-append-version="true"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+<script src="~/lib/datatables/js/dataTables.bootstrap5.min.js" asp-append-version="true"></script>
+
+<script>
+    // تنظیم پیش‌فرض زبان فارسی برای تمام DataTables های پروژه
+    $.extend(true, $.fn.dataTable.defaults, {
+        language: {
+            emptyTable: "هیچ داده‌ای در جدول وجود ندارد",
+            info: "نمایش _START_ تا _END_ از _TOTAL_ ردیف",
+            infoEmpty: "نمایش 0 تا 0 از 0 ردیف",
+            infoFiltered: "(فیلتر شده از _MAX_ ردیف)",
+            lengthMenu: "نمایش _MENU_ ردیف",
+            loadingRecords: "در حال بارگزاری...",
+            processing: "در حال پردازش...",
+            search: "جستجو:",
+            zeroRecords: "رکوردی با این مشخصات پیدا نشد",
+            paginate: {
+                first: "ابتدا",
+                last: "انتها",
+                next: "بعدی",
+                previous: "قبلی"
+            }
+        }
+    });
+
+    // تنظیمات پیش‌فرض Select2 در صورت نیاز
+    $.fn.select2.defaults.set("theme", "bootstrap-5");
+    $.fn.select2.defaults.set("dir", "rtl");
+    $.fn.select2.defaults.set("width", "100%");
+</script>

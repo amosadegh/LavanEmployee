@@ -36,7 +36,7 @@ namespace Employee.Web.Controllers
             model.EmployeeNumber!, model.Password!, model.RememberMe, lockoutOnFailure: true);
 
         var user = await userManager.Users.FirstOrDefaultAsync(u => u.UserName == model.EmployeeNumber);
-        var roles = await userManager.GetRolesAsync(user!);
+      //  var roles = await userManager.GetRolesAsync(user!);
 
         if (user != null && await userManager.IsLockedOutAsync(user))
         {
@@ -47,13 +47,18 @@ namespace Employee.Web.Controllers
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
-            if (roles.Contains("SuperAdmin"))
-            {
-                return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
-            }
-        }
+                if (await userManager.IsInRoleAsync(user!, "SuperAdmin"))
+                    return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
+                if (await userManager.IsInRoleAsync(user!, "UserAdmin"))
+                    return RedirectToAction("Index", "Home", new { area = "UserAdmin" });
+                if (await userManager.IsInRoleAsync(user!, "Representative"))
+                    return RedirectToAction("Index", "Home", new { area = "Representative" });
 
-        if (result.IsNotAllowed)
+                return RedirectToAction("Index", "Home", new { area = "User" });
+
+            }
+
+            if (result.IsNotAllowed)
         {
             ModelState.AddModelError("", "حساب شما فعال نیست.");
         }

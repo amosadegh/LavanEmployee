@@ -1,4 +1,7 @@
-﻿using Employee.Entities.Models.User;
+﻿using Employee.DataAccess.Repositories.Interfaces;
+using Employee.Entities.Models;
+using Employee.Entities.Models.Basic;
+using Employee.Entities.Models.User;
 using Employee.Entities.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,13 +18,22 @@ namespace Employee.Web.Areas.SuperAdmin.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ISecondOrganizationUserRepository _secOrgUserRepo;
+        private readonly ISecondOrganizationRepository _secOrgRepo;
+        private readonly IRepository<Organization> _orgRepo;
 
         public UsersController(
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ISecondOrganizationUserRepository secOrgUserRepo,
+            ISecondOrganizationRepository secOrgRepo,
+            IRepository<Organization> orgRepo)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _secOrgUserRepo = secOrgUserRepo;
+            _secOrgRepo = secOrgRepo;
+            _orgRepo = orgRepo;
         }
 
         // ─── Index ────────────────────────────────────────────────
@@ -191,6 +203,93 @@ namespace Employee.Web.Areas.SuperAdmin.Controllers
                 .ToListAsync();
 
             ViewBag.Roles = roles;
+        }
+
+        // ── AssignOrganization GET ───────────────────────────────
+        public async Task<IActionResult> AssignOrganization(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) return NotFound();
+
+            ViewBag.UserId = id;
+            ViewBag.UserFullName = user.FullName;
+
+            await PopulateOrganizationDropDown();
+
+            var assignments = await _secOrgUserRepo.GetByUserIdAsync(id);
+            return View(assignments);
+        }
+
+        // ── AssignOrganization POST ──────────────────────────────
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignOrganization(
+            string userId,
+            int secondOrganizationId,
+            string role)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return NotFound();
+
+            bool exists = await _secOrgUserRepo.ExistsAsync(userId, secondOrganizationId, role);
+            if (exists)
+            {
+                TempData["Error"] = "این کاربر با این نقش در این واحد سازمانی قبلاً ثبت شده است.";
+                return RedirectToAction(nameof(AssignOrganization), new { id = userId });
+            }
+
+            var entity = new SecondOrganizationUser
+            {
+                UserId = userId,
+                SecondOrganizationId = secondOrganizationId,
+                Role = role
+            };
+
+            await _secOrgUserRepo.AddAsync(entity);
+            await _secOrgUserRepo.SaveChangesAsync();
+
+            TempData["Success"] = "انتساب با موفقیت ثبت شد.";
+            return RedirectToAction(nameof(AssignOrganization), new { id = userId });
+        }
+
+        // ── RemoveAssignment POST ────────────────────────────────
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveAssignment(int assignmentId, string userId)
+        {
+            var entity = await _secOrgUserRepo.GetSingleAsync(x => x.Id == assignmentId);
+            if (entity != null)
+            {
+                _secOrgUserRepo.Remove(entity);
+                await _secOrgUserRepo.SaveChangesAsync();
+                TempData["Success"] = "انتساب با موفقیت حذف شد.";
+            }
+
+            return RedirectToAction(nameof(AssignOrganization), new { id = userId });
+        }
+
+        // ── GetSecondOrganizations — AJAX ────────────────────────
+        [HttpGet]
+        public async Task<IActionResult> GetSecondOrganizations(int organizationId)
+        {
+            var items = await _secOrgRepo.GetAsync(
+                filter: x => x.OrganizationId == organizationId);
+
+            var result = items.Select(x => new
+            {
+                id = x.SecondOrganizationId,
+                title = x.SecondOrganizationTitle
+            });
+
+            return Json(result);
+        }
+
+        // ── Private Helpers ──────────────────────────────────────
+        private async Task PopulateOrganizationDropDown(int? selectedOrg = null)
+        {
+            var orgs = await _orgRepo.GetAsync();
+            ViewBag.Organizations = new SelectList(
+                orgs, "OrganizationId", "OrganizationTitle", selectedOrg);
         }
     }
 }

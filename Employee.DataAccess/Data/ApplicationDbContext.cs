@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Employee.Entities.Models.Basic;
 using Employee.Entities.Models.Personel;
 using Employee.Entities.Models.User;
+using Employee.Entities.Models;
+using Employee.Entities.Models.TimeSheet;
+using System.Reflection.Emit;
 
 namespace Employee.DataAccess.Data
 {
@@ -32,7 +35,16 @@ namespace Employee.DataAccess.Data
         #region Personel    
         public DbSet<TblEmployee> Employees { get; set; }
         #endregion
+        #region TimeSheet   
+        public DbSet<WorkRecord> WorkRecords { get; set; }
+        public DbSet<WorkRecordCorrection> WorkRecordCorrections { get; set; }
+        public DbSet<MonthlyTimeSheet> MonthlyTimeSheets { get; set; }
+        #endregion
+        #region User    
+        // در ApplicationDbContext اضافه کن:
+        public DbSet<SecondOrganizationUser> SecondOrganizationUsers { get; set; }
 
+        #endregion
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -42,6 +54,28 @@ namespace Employee.DataAccess.Data
                 .WithOne(u => u.Employee)
                 .HasForeignKey<TblEmployee>(e => e.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<WorkRecord>(entity =>
+            {
+                // ایندکس برای کوئری‌های ماهانه
+                entity.HasIndex(e => new { e.EmpId, e.FromDate, e.ToDate })
+                      .HasDatabaseName("IX_WorkRecords_Emp_DateRange");
+
+                // جلوگیری از multiple cascade paths
+                entity.HasOne(e => e.Employee)
+                      .WithMany()
+                      .HasForeignKey(e => e.EmpId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            //builder.Entity<WorkRecordCorrection>(entity =>
+            //{
+            //    entity.HasOne(e => e.WorkRecord)
+            //          .WithMany(w => w.Corrections)
+            //          .HasForeignKey(e => e.WorkRecordId)
+            //          .OnDelete(DeleteBehavior.Cascade);
+            //});
+
         }
     }
 }

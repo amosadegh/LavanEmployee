@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Employee.Entities.Models.User;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -21,5 +22,8 @@ namespace Employee.Entities.Models.Basic
         public string? SecondOrganizationTitle { get; set; }
         // Navigation Property (Many-to-One)
         public Organization? Organization { get; set; }
+        // لیست کاربران منتسب (نماینده‌ها و مدیران)
+        public virtual ICollection<SecondOrganizationUser> SecondOrganizationUsers { get; set; }
+            = new List<SecondOrganizationUser>();
     }
 }

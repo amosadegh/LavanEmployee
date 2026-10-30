@@ -9,16 +9,12 @@
   <ItemGroup>
     <Compile Remove="wwwroot\Content\**" />
     <Compile Remove="wwwroot\js\**" />
-    <Compile Remove="wwwroot\lib\**" />
     <Content Remove="wwwroot\Content\**" />
     <Content Remove="wwwroot\js\**" />
-    <Content Remove="wwwroot\lib\**" />
     <EmbeddedResource Remove="wwwroot\Content\**" />
     <EmbeddedResource Remove="wwwroot\js\**" />
-    <EmbeddedResource Remove="wwwroot\lib\**" />
     <None Remove="wwwroot\Content\**" />
     <None Remove="wwwroot\js\**" />
-    <None Remove="wwwroot\lib\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +39,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Employee.DataAccess\Employee.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Representative\Data\" />
+    <Folder Include="Areas\Representative\Models\" />
+    <Folder Include="Areas\UserAdmin\Data\" />
+    <Folder Include="Areas\UserAdmin\Models\" />
+    <Folder Include="Areas\User\Data\" />
+    <Folder Include="Areas\User\Models\" />
   </ItemGroup>
 
 </Project>

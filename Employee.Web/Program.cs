@@ -3,6 +3,7 @@ using Employee.DataAccess.Repositories.Implementations;
 using Employee.DataAccess.Repositories.Interfaces;
 using Employee.DataAccess.Repository;
 using Employee.Entities.Models.User;
+using Employee.Web.Data;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -81,8 +82,14 @@ builder.Services.AddScoped<ISecondOrganizationRepository, SecondOrganizationRepo
 #region Employee
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 #endregion
+#region Users
+builder.Services.AddScoped<ISecondOrganizationUserRepository, SecondOrganizationUserRepository>();
 
-
+#endregion
+#region TimeSheetDataService
+builder.Services.AddScoped<IWorkRecordRepository, WorkRecordRepository>();
+builder.Services.AddScoped<IMonthlyTimeSheetRepository, MonthlyTimeSheetRepository>();
+#endregion
 var app = builder.Build();
 
 // Seed

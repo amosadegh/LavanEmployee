@@ -31,6 +31,7 @@ namespace Employee.Entities.ViewModels.User
         [Required(ErrorMessage = "انتخاب نقش الزامی است")]
         [Display(Name = "نقش")]
         public string RoleName { get; set; } = string.Empty;
+        [Display(Name ="فعال")]
         public bool IsActive { get; set; } = true;
 
     }
