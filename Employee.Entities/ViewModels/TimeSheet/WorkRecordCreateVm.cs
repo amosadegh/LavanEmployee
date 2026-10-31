@@ -8,6 +8,9 @@ namespace Employee.Models.TimeSheet
         // شناسه رکورد (فقط در ویرایش)
         public long? WorkRecordId { get; set; }
 
+        // کارمند هدف (فقط در area نماینده استفاده می‌شود)
+        public int EmpId { get; set; }
+
         // سال و ماه انتخاب‌شده در Index (hidden) - بازه مجاز تاریخ
         [Range(1300, 1600)]
         public int Year { get; set; }

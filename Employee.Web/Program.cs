@@ -89,6 +89,7 @@ builder.Services.AddScoped<ISecondOrganizationUserRepository, SecondOrganization
 #region TimeSheetDataService
 builder.Services.AddScoped<IWorkRecordRepository, WorkRecordRepository>();
 builder.Services.AddScoped<IMonthlyTimeSheetRepository, MonthlyTimeSheetRepository>();
+builder.Services.AddScoped<IRepresentativeScopeRepository, RepresentativeScopeRepository>();
 #endregion
 var app = builder.Build();
 

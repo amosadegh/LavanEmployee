@@ -12,6 +12,9 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
+            <div class="alert alert-info py-2">
+                بازه مجاز: از <strong>@ViewBag.MinText</strong> تا <strong>@ViewBag.MaxText</strong>
+            </div>
             <form asp-action="@(isEdit ? "Edit" : "Create")" asp-route-id="@(isEdit ? Model.WorkRecordId : null)" method="post">
                 <input type="hidden" asp-for="Year" />
                 <input type="hidden" asp-for="Month" />

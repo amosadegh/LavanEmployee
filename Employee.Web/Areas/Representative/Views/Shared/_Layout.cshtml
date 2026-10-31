@@ -58,7 +58,7 @@
                 </li>
 
                 <!-- پرسنل زیرمجموعه -->
-                <li class="nav-item">
+               @*  <li class="nav-item">
                     <a class="nav-link collapsed"
                        data-bs-toggle="collapse"
                        href="#submenuMyPersonnel"
@@ -77,6 +77,35 @@
                                     <span>لیست پرسنل</span>
                                 </a>
                             </li>
+                        </ul>
+                    </div>
+                </li> *@
+                <!-- کارکرد-->
+                <li class="nav-item">
+                    <a class="nav-link collapsed"
+                       data-bs-toggle="collapse"
+                       href="#submenuUserWorks"
+                       role="button"
+                       aria-expanded="false"
+                       aria-controls="submenuUserWorks">
+                        <i class="bi bi-calendar-date me-2"></i>
+                        <span>کارکردهای پرسنل</span>
+                        <i class="bi bi-chevron-left ms-auto submenu-arrow"></i>
+                    </a>
+                    <div class="collapse submenu-list-wrapper" id="submenuUserWorks">
+                        <ul class="nav flex-column submenu-list">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Representative" asp-controller="WorkRecords" asp-action="Index">
+                                    <i class="bi bi-circle me-2" style="font-size: 0.5rem"></i>
+                                    <span>لیست کارکردها</span>
+                                </a>
+                            </li>
+                            @*   <li class="nav-item">
+                            <a class="nav-link" asp-area="User" asp-controller="Requests" asp-action="Create">
+                            <i class="bi bi-circle me-2" style="font-size: 0.5rem"></i>
+                            <span>ثبت کارکرد جدید</span>
+                            </a>
+                            </li> *@
                         </ul>
                     </div>
                 </li>

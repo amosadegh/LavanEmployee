@@ -5,6 +5,7 @@ using Employee.Entities.Models.Enums;
 using Employee.Entities.Models.Personel;
 using Employee.Entities.Models.TimeSheet;
 using Employee.Models.TimeSheet;
+using Employee.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,11 +18,6 @@ namespace Employee.Areas.User.Controllers
     public class WorkRecordsController : Controller
     {
         private static readonly PersianCalendar Pc = new();
-        private static readonly string[] MonthNames =
-        {
-            "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
-            "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
-        };
 
         private readonly IWorkRecordRepository _workRepo;
         private readonly IEmployeeRepository _employeeRepo;
@@ -44,12 +40,12 @@ namespace Employee.Areas.User.Controllers
         public async Task<IActionResult> Index(int? year, int? month)
         {
             var now = DateTime.Now;
-            var (y, m) = NormalizeYearMonth(year, month, now);
+            var (y, m) = TimeSheetHelper.NormalizeYearMonth(year, month, now);
 
             var me = await GetMeAsync();
             if (me == null) return Forbid();
 
-            var (start, end) = GetMonthRange(y, m);
+            var (start, end) = TimeSheetHelper.GetMonthRange(y, m);
             var records = await _workRepo.GetByEmployeeInRangeAsync(me.EmpId, start, end);
             var sheet = await _sheetRepo.GetAsync(me.EmpId, y, m);
 
@@ -60,7 +56,7 @@ namespace Employee.Areas.User.Controllers
             ViewBag.Month = m;
             ViewBag.Years = new SelectList(Enumerable.Range(Pc.GetYear(now) - 5, 7).Reverse(), y);
             ViewBag.Months = new SelectList(
-                MonthNames.Select((n, i) => new { Id = i + 1, Name = n }), "Id", "Name", m);
+                TimeSheetHelper.MonthNames.Select((n, i) => new { Id = i + 1, Name = n }), "Id", "Name", m);
             ViewBag.DayTotals = records
                 .GroupBy(r => r.WorkStatus)
                 .ToDictionary(g => g.Key, g => g.Sum(r => r.GetDaysInRange(start, end)));
@@ -74,7 +70,7 @@ namespace Employee.Areas.User.Controllers
             var me = await GetMeAsync();
             if (me == null) return Forbid();
 
-            var (y, m) = NormalizeYearMonth(year, month, DateTime.Now);
+            var (y, m) = TimeSheetHelper.NormalizeYearMonth(year, month, DateTime.Now);
             var sheet = await _sheetRepo.GetAsync(me.EmpId, y, m);
             if (sheet != null && !sheet.IsEditable)
             {
@@ -146,8 +142,8 @@ namespace Employee.Areas.User.Controllers
                 WorkRecordId = rec.WorkRecordId,
                 Year = y,
                 Month = m,
-                FromDate = ToPersian(rec.FromDate),
-                ToDate = ToPersian(rec.ToDate),
+                FromDate = TimeSheetHelper.ToPersian(rec.FromDate),
+                ToDate = TimeSheetHelper.ToPersian(rec.ToDate),
                 WorkStatus = rec.WorkStatus,
                 Description = rec.Description
             };
@@ -226,7 +222,7 @@ namespace Employee.Areas.User.Controllers
                 return RedirectToAction(nameof(Index), new { year, month });
             }
 
-            var (s, e) = GetMonthRange(year, month);
+            var (s, e) = TimeSheetHelper.GetMonthRange(year, month);
             if ((await _workRepo.GetByEmployeeInRangeAsync(me.EmpId, s, e)).Count == 0)
             {
                 TempData["Error"] = "برای ارسال حداقل یک کارکرد لازم است";
@@ -251,13 +247,13 @@ namespace Employee.Areas.User.Controllers
         {
             ViewBag.IsEdit = isEdit;
             ViewBag.Statuses = new SelectList(
-                Enum.GetValues<WorkStatusType>().Select(s => new { Id = s, Name = StatusTitle(s) }),
+                Enum.GetValues<WorkStatusType>().Select(s => new { Id = s, Name = TimeSheetHelper.StatusTitle(s) }),
                 "Id", "Name", vm.WorkStatus);
 
-            var (start, end) = GetMonthRange(vm.Year, vm.Month);
-            ViewBag.MonthTitle = $"{MonthNames[vm.Month - 1]} {vm.Year}";
-            ViewBag.MinText = ToPersian(start);
-            ViewBag.MaxText = ToPersian(end);
+            var (start, end) = TimeSheetHelper.GetMonthRange(vm.Year, vm.Month);
+            ViewBag.MonthTitle = $"{TimeSheetHelper.MonthNames[vm.Month - 1]} {vm.Year}";
+            ViewBag.MinText = TimeSheetHelper.ToPersian(start);
+            ViewBag.MaxText = TimeSheetHelper.ToPersian(end);
             ViewBag.MinIso = start.ToString("yyyy-MM-dd");
             ViewBag.MaxIso = end.ToString("yyyy-MM-dd");
         }
@@ -266,9 +262,9 @@ namespace Employee.Areas.User.Controllers
         private async Task<(bool Ok, DateOnly From, DateOnly To)> ValidateDatesAsync(
             WorkRecordCreateVm vm, int empId, long? excludeId)
         {
-            var (ms, me) = GetMonthRange(vm.Year, vm.Month);
+            var (ms, me) = TimeSheetHelper.GetMonthRange(vm.Year, vm.Month);
 
-            if (!TryParsePersian(vm.FromDate, out var from) || !TryParsePersian(vm.ToDate, out var to))
+            if (!TimeSheetHelper.TryParsePersian(vm.FromDate, out var from) || !TimeSheetHelper.TryParsePersian(vm.ToDate, out var to))
             {
                 ModelState.AddModelError(string.Empty, "تاریخ‌ها معتبر نیستند");
                 return (false, default, default);
@@ -281,7 +277,7 @@ namespace Employee.Areas.User.Controllers
             if (from < ms || to > me)
             {
                 ModelState.AddModelError(string.Empty,
-                    $"بازه باید داخل {MonthNames[vm.Month - 1]} {vm.Year} باشد");
+                    $"بازه باید داخل {TimeSheetHelper.MonthNames[vm.Month - 1]} {vm.Year} باشد");
                 return (false, default, default);
             }
             if (await _workRepo.HasOverlapAsync(empId, from, to, excludeId))
@@ -290,72 +286,6 @@ namespace Employee.Areas.User.Controllers
                 return (false, default, default);
             }
             return (ModelState.IsValid, from, to);
-        }
-
-        private static (int y, int m) NormalizeYearMonth(int? year, int? month, DateTime now)
-        {
-            var y = year ?? Pc.GetYear(now);
-            var m = month ?? Pc.GetMonth(now);
-            if (y < 1300 || y > 1600) y = Pc.GetYear(now);
-            if (m < 1 || m > 12) m = Pc.GetMonth(now);
-            return (y, m);
-        }
-
-        public static (DateOnly Start, DateOnly End) GetMonthRange(int y, int m)
-        {
-            var start = DateOnly.FromDateTime(Pc.ToDateTime(y, m, 1, 0, 0, 0, 0));
-            var end = start.AddDays(Pc.GetDaysInMonth(y, m) - 1);
-            return (start, end);
-        }
-
-        public static string ToPersian(DateOnly d)
-        {
-            var dt = d.ToDateTime(TimeOnly.MinValue);
-            return $"{Pc.GetYear(dt):0000}/{Pc.GetMonth(dt):00}/{Pc.GetDayOfMonth(dt):00}";
-        }
-
-        public static string StatusTitle(WorkStatusType s) => s switch
-        {
-            WorkStatusType.OnshoreWork => "کارکرد خشکی",
-            WorkStatusType.OffshoreWork => "کارکرد سکو",
-            WorkStatusType.Standby => "آماده‌به کار",
-            WorkStatusType.Rest => "استراحت",
-            WorkStatusType.Leave => "مرخصی",
-            WorkStatusType.Sick => "استعلاجی",
-            WorkStatusType.Absent=>"غیبت",
-            WorkStatusType.Mission =>"ماموریت",
-            _ => s.ToString()
-        };
-
-        /// تبدیل ارقام فارسی/عربی به لاتین
-        private static string NormalizeDigits(string input)
-        {
-            var chars = input.ToCharArray();
-            for (int i = 0; i < chars.Length; i++)
-            {
-                var c = chars[i];
-                if (c >= '۰' && c <= '۹') chars[i] = (char)('0' + (c - '۰'));
-                else if (c >= '٠' && c <= '٩') chars[i] = (char)('0' + (c - '٠'));
-            }
-            return new string(chars);
-        }
-
-        private static bool TryParsePersian(string? input, out DateOnly date)
-        {
-            date = default;
-            if (string.IsNullOrWhiteSpace(input)) return false;
-
-            var parts = NormalizeDigits(input.Trim()).Split('/');
-            if (parts.Length != 3 ||
-                !int.TryParse(parts[0], out var y) ||
-                !int.TryParse(parts[1], out var m) ||
-                !int.TryParse(parts[2], out var d))
-                return false;
-            if (y < 1300 || y > 1600 || m < 1 || m > 12 || d < 1 || d > Pc.GetDaysInMonth(y, m))
-                return false;
-
-            date = DateOnly.FromDateTime(Pc.ToDateTime(y, m, d, 0, 0, 0, 0));
-            return true;
         }
     }
 }

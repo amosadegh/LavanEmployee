@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Employee.Entities.Models.TimeSheet.WorkRecord>
 @using Employee.Entities.Models.Enums
 @using Employee.Entities.Models.TimeSheet
-@using Employee.Areas.User.Controllers
+@using Employee.Web.Helpers
 @{
     ViewData["Title"] = "کارکرد من";
     int year = ViewBag.Year;
@@ -75,7 +75,7 @@
             <div class="col-6 col-md-3 col-xl">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="card-body text-center py-3">
-                        <div class="text-muted small">@WorkRecordsController.StatusTitle(kv.Key)</div>
+                        <div class="text-muted small">@TimeSheetHelper.StatusTitle(kv.Key)</div>
                         <div class="fs-3 fw-bold text-primary">@kv.Value</div>
                         <div class="text-muted small">روز</div>
                     </div>
@@ -106,9 +106,9 @@
                         @foreach (var r in Model)
                         {
                             <tr>
-                                <td>@WorkRecordsController.ToPersian(r.FromDate)</td>
-                                <td>@WorkRecordsController.ToPersian(r.ToDate)</td>
-                                <td>@WorkRecordsController.StatusTitle(r.WorkStatus)</td>
+                                <td>@TimeSheetHelper.ToPersian(r.FromDate)</td>
+                                <td>@TimeSheetHelper.ToPersian(r.ToDate)</td>
+                                <td>@TimeSheetHelper.StatusTitle(r.WorkStatus)</td>
                                 <td>@r.DayCount</td>
                                 <td>@r.Description</td>
                                 @if (sheetEditable)
@@ -131,5 +131,5 @@
 </div>
 
 @section scripts {
-   
+
 }
